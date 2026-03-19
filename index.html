@@ -1,4 +1,5 @@
 <!doctype html>
+
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
@@ -25,12 +26,131 @@
 <section id="landing" class="hero"><div><span class="badge">32문항 · 16대표유형 · 256세부유형</span><h1>당신의 <span class="grad">공감엔진</span>은 어떻게 작동하나요?</h1><p>EETI는 성격을 가볍게 분류하는 검사가 아닙니다. 의지와 반응, 이성과 공감, 출력과 대응, 학습과 진화를 통해 당신이 <strong>무엇으로 움직이고</strong>, <strong>어떻게 살아가는지</strong>를 읽습니다.</p><div class="actions"><button class="btn primary" onclick="startTest()">무료로 검사 시작</button><button class="btn ghost" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">검사 원리 보기</button></div><div class="grid3"><div class="card stat"><strong>4축</strong><span>의지 · 공감 · 출력 · 진화</span></div><div class="card stat"><strong>16유형</strong><span>대표 엔진 유형</span></div><div class="card stat"><strong>256유형</strong><span>세부 공감 구조</span></div></div></div><div class="card side"><h3>검사에서 확인하는 것</h3><ul><li>당신의 <strong>엔진 유형</strong> (앞 두 자리)</li><li>당신의 <strong>운전 방식</strong> (뒤 두 자리)</li><li>강점, 그림자, 보완 포인트</li><li>근본형일 가능성과 적응형 가능성</li></ul></div></section>
 <section id="about" class="info"><article class="card"><h3>EETI는 무엇을 봅니까?</h3><p>EETI는 겉으로 보이는 성향보다 <strong>존재의 구조</strong>를 봅니다. 단순히 “나는 어떤 사람인가”가 아니라 “나는 무엇으로 움직이고, 어떻게 반응하고, 어떻게 변화하는가”를 읽습니다.</p></article><article class="card"><h3>어떻게 결과가 나옵니까?</h3><p>32문항을 통해 4개 축을 측정합니다. 결과는 <strong>4자리 숫자 코드</strong>로 출력되며, 앞 두 자리는 공감엔진, 뒤 두 자리는 운전방식을 뜻합니다.</p></article><article class="card"><h3>이 검사의 목적은?</h3><p>당신을 좋은 유형/나쁜 유형으로 자르기 위한 검사가 아닙니다. 지금의 구조를 읽고, 장점을 더 살리고, 반복되는 소진 패턴을 더 정확히 이해하기 위한 도구입니다.</p></article></section>
 <section id="test" class="test hidden"><div class="card progress"><div class="meta"><span id="pLabel">문항 1 / 32</span><span id="pPct">3%</span></div><div class="bar"><div id="pFill" class="fill"></div></div></div><div class="card q"><div id="qAxis" class="tag"></div><h2 id="qText"></h2><div id="opts" class="opts"></div><div class="nav"><button class="btn ghost" id="prev" onclick="prevQ()">이전</button><button class="btn primary" id="next" onclick="nextQ()" disabled>다음</button></div></div></section>
-<section id="result" class="hidden"><div class="card resultH"><span class="badge">검사 결과</span><h2><span id="rCode"></span> · <span id="rTitle"></span></h2><p id="rSummary"></p><div class="resultActions"><button class="btn primary" onclick="resetTest()">다시 검사하기</button><button class="btn ghost" onclick="copyResult()">결과 복사</button></div></div><div class="resultGrid"><article class="card"><h3>대표 엔진</h3><p id="engine"></p></article><article class="card"><h3>운전 방식</h3><p id="drive"></p></article><article class="card"><h3>잘 맞는 부분</h3><ul id="fit"></ul></article><article class="card"><h3>충돌 / 그림자</h3><ul id="conflict"></ul></article><article class="card"><h3>보완하면 좋은 것</h3><ul id="improve"></ul></article><article class="card"><h3>살리면 좋은 것</h3><ul id="strength"></ul></article></div><div class="resultGrid lower"><article class="card"><h3>추천 역할 / 직업 상징</h3><p id="career"></p></article><article class="card"><h3>근본형일 가능성 / 적응형일 가능성</h3><p id="auth"></p></article></div></section>
+<section id="result" class="hidden"><div class="card resultH"><span class="badge">검사 결과</span><h2><span id="rCode"></span> · <span id="rTitle"></span></h2><p id="rSummary"></p><div class="resultActions"><button class="btn primary" onclick="resetTest()">다시 검사하기</button><button class="btn ghost" onclick="copyResult()">결과 복사</button></div></div><div class="resultGrid"><article class="card"><h3>대표 엔진</h3><p id="engine"></p></article><article class="card"><h3>운전 방식</h3><p id="drive"></p></article><article class="card"><h3>잘 맞는 부분</h3><ul id="fit"></ul></article><article class="card"><h3>충돌 / 그림자</h3><ul id="conflict"></ul></article><article class="card"><h3>보완하면 좋은 것</h3><ul id="improve"></ul></article><article class="card"><h3>살리면 좋은 것</h3><ul id="strength"></ul></article></div><div class="resultGrid lower">
+  <article class="card">
+    <h3>한 줄 정체성</h3>
+    <p id="identity"></p>
+  </article>
+  <article class="card">
+    <h3>핵심 작동 방식</h3>
+    <p id="summaryDetail"></p>
+  </article>
+  <article class="card">
+    <h3>관계 속의 모습</h3>
+    <p id="relationship"></p>
+  </article>
+  <article class="card">
+    <h3>이성관계</h3>
+    <p id="romance"></p>
+  </article>
+  <article class="card">
+    <h3>일적인 부분</h3>
+    <p id="work"></p>
+  </article>
+  <article class="card">
+    <h3>돈과 자산</h3>
+    <p id="money"></p>
+  </article>
+  <article class="card">
+    <h3>건강</h3>
+    <p id="health"></p>
+  </article>
+  <article class="card">
+    <h3>나이대별 발현</h3>
+    <p id="ages"></p>
+  </article>
+  <article class="card">
+    <h3>최근 한국 사회에서의 유불리</h3>
+    <p id="society"></p>
+  </article>
+  <article class="card">
+    <h3>장점을 극대화하는 방법</h3>
+    <p id="maximize"></p>
+  </article>
+  <article class="card">
+    <h3>단점을 줄이는 방법</h3>
+    <p id="minimize"></p>
+  </article>
+  <article class="card">
+    <h3>최종 조언</h3>
+    <p id="finalAdvice"></p>
+  </article>
+  <article class="card">
+    <h3>근본형 / 적응형 추가 확인</h3>
+    <p id="authHint"></p>
+  </article>
+</div></section>
 </main><footer class="container footer">© EETI Test Prototype · Vercel 배포용 단일 파일 버전</footer>
 <script>
 const QUESTIONS=[['1축 · 의지-반응','나는 마음먹은 일은 주변 상황과 상관없이 끝까지 밀어붙이는 편이다.','will',0],['1축 · 의지-반응','주변 분위기에 따라 나의 행동이나 감정이 쉽게 바뀌는 편이다.','response',0],['1축 · 의지-반응','갈등 상황에서 내 입장을 끝까지 유지하려 한다.','will',0],['1축 · 의지-반응','누군가 강하게 나오면 나도 모르게 그 흐름에 맞추게 된다.','response',0],['1축 · 의지-반응','나는 스스로 선택했다고 생각하지만, 나중에 보면 환경 영향이 컸던 경우가 많다.','response',0],['1축 · 의지-반응','중요한 결정을 할 때 외부 의견보다 내 기준을 우선한다.','will',0],['1축 · 의지-반응','사람이나 상황에 따라 내 태도가 크게 달라지는 편이다.','response',0],['1축 · 의지-반응','손해를 보더라도 내가 맞다고 생각하는 방향을 유지하려 한다.','will',0],['2축 · 이성OS-공감OS','문제를 해결할 때 감정보다 논리와 구조를 먼저 본다.','reason',0],['2축 · 이성OS-공감OS','상대의 말보다 그 사람의 감정 상태가 더 먼저 느껴진다.','empathy',0],['2축 · 이성OS-공감OS','감정이 개입되면 오히려 판단이 흐려진다고 느낀다.','reason',0],['2축 · 이성OS-공감OS','누군가 힘들어 보이면 이유를 몰라도 감정이 전염되는 편이다.','empathy',0],['2축 · 이성OS-공감OS','나는 상황을 객관적으로 보려고 의도적으로 감정을 배제한다.','reason',0],['2축 · 이성OS-공감OS','타인의 기분이나 분위기에 영향을 많이 받는 편이다.','empathy',0],['2축 · 이성OS-공감OS','감정보다 결과와 효율이 더 중요하다고 생각한다.','reason',0],['2축 · 이성OS-공감OS','논리적으로 맞아도 감정이 불편하면 받아들이기 어렵다.','empathy',0],['3축 · 출력-대응','나는 스스로 정한 목표나 계획을 외부 상황과 상관없이 실행하려는 편이다.','output',0],['3축 · 출력-대응','누군가의 요청이나 기대가 있으면 그에 맞추어 행동하는 경우가 많다.','adapt',0],['3축 · 출력-대응','내가 하고 싶은 일이 있어도 주변 상황에 따라 쉽게 미루거나 바뀌는 편이다.','adapt',0],['3축 · 출력-대응','외부에서 요구하지 않아도 스스로 일을 만들어서 실행하는 편이다.','output',0],['3축 · 출력-대응','다른 사람이 나에게 기대하는 역할을 자연스럽게 수행하게 된다.','adapt',0],['3축 · 출력-대응','타인의 의견과 상관없이 내가 결정한 방향을 밀고 나가는 편이다.','output',0],['3축 · 출력-대응','부탁이나 요청을 받으면 내 계획보다 그것을 우선하는 경우가 많다.','adapt',0],['3축 · 출력-대응','누가 시키지 않아도 내가 필요하다고 느끼면 바로 행동으로 옮긴다.','output',0],['4축 · 학습-진화','새로운 것을 배우는 것 자체를 즐기는 편이다.','learn',0],['4축 · 학습-진화','같은 실수를 반복하지 않기 위해 나를 바꾸려는 노력을 한다.','evolve',0],['4축 · 학습-진화','정보를 모으고 이해하는 과정이 중요하다고 생각한다.','learn',0],['4축 · 학습-진화','필요하다면 기존 방식이나 가치관을 과감히 바꿀 수 있다.','evolve',0],['4축 · 학습-진화','경험을 통해 점점 더 나아지는 느낌을 중요하게 생각한다.','evolve',0],['4축 · 학습-진화','새로운 지식이나 정보를 접하면 자연스럽게 탐구하게 된다.','learn',0],['4축 · 학습-진화','예전의 나와 지금의 내가 많이 달라졌다고 느낀다.','evolve',0],['4축 · 학습-진화','배우는 것보다 이미 아는 것을 활용하는 것이 더 편하다.','learn',1]];
 const ENGINE={11:['멈춘 엔진형','의지와 반응이 모두 낮아 에너지를 최소화하며 버티는 구조입니다. 조용한 생존 전략이 강합니다.',['조용한 안정','거리두기','자극에 덜 흔들림'],['작은 실행 회복','리듬 만들기'],'기록자, 아카이브 관리자, 저자극 환경의 반복 업무'],12:['흔들리는 수신형','외부 반응에는 민감하지만 자기 의지는 약한 편입니다. 공감은 강하지만 자기 경계가 흔들릴 수 있습니다.',['감수성','분위기 감지','관계 공감력'],['자기 기준 세우기','거절 연습'],'상담 보조, 서비스, 돌봄, 감정 감지력이 필요한 역할'],13:['고립된 추진형','의지는 강하지만 외부 반응 수용은 약한 편입니다. 혼자 밀고 가는 힘이 큽니다.',['독립성','집중력','자기 추진력'],['피드백 수용','타인 반응 관찰'],'연구자, 개발자, 독립 창작자, 장인형 전문가'],14:['완성형 추진자','의지와 반응이 모두 강해 리더형으로 작동하기 쉽습니다. 밀고 나가면서도 상황을 읽습니다.',['리더십','판단력','영향력'],['완급 조절','번아웃 방지'],'프로젝트 리더, 총괄, 창업가, 현장 책임자'],21:['감정 차단형','이성과 공감이 모두 약해 느끼지 않음으로 버티는 경향이 있습니다. 방어적 거리두기가 강합니다.',['냉정함','위기 안정성'],['감정 인식','작은 표현'],'위기관리, 보안, 저자극 환경 역할'],22:['상처받은 공감형','공감이 강하지만 이성 조율은 약할 수 있습니다. 타인을 먼저 느끼고 자신을 놓치기 쉽습니다.',['치유력','공감력','감수성'],['경계 세우기','공감 차단 기술'],'상담, 예술, 돌봄, 감성 콘텐츠'],23:['차가운 분석형','이성은 강하고 공감은 약한 편입니다. 구조와 효율을 우선하여 판단합니다.',['판단력','논리','분석력'],['감정도 정보로 보기','관계 번역'],'전략기획, 분석가, 정책, 설계'],24:['균형 잡힌 이해형','이성과 공감이 모두 강해 이해와 판단을 함께 수행하는 통합형에 가깝습니다.',['중재력','통합 이해','관계 조율'],['자기삭제 방지','과책임 줄이기'],'상담가, 코치, 조직문화, 중재자'],31:['내부 소진형','출력과 대응이 모두 약해 안에 쌓이는 힘이 큽니다. 성찰은 깊지만 실행이 막힐 수 있습니다.',['성찰','관찰','깊이'],['작은 표현','행동 시작'],'작가, 연구자, 조용한 기획형 역할'],32:['타인 중심 실행형','대응은 강하지만 출력은 약해 요청 중심으로 움직이는 경향이 큽니다.',['협업','실무력','조력 능력'],['자기 목표 설정','내 계획 우선'],'운영, 매니저, 지원 실무자'],33:['독립 실행형','자기 방식대로 실행하는 힘이 큽니다. 창의적이고 독립적이지만 독주 위험도 있습니다.',['독창성','자기 주도성','실행력'],['타인 수용','협업 감각'],'창업, 예술, 독립 프로젝트, 제품 설계'],34:['완전 실행형','출력과 대응이 모두 강해 실행과 조정을 동시에 해내는 현장형 구조입니다.',['현장 리더십','적응력','실행력'],['선택과 집중','과부하 관리'],'현장 총괄, PM, 리더, 운영 책임자'],41:['정체 유지형','학습과 진화가 모두 약한 편이라 변화보다 유지에 초점이 맞춰집니다.',['안정성','보존력'],['작은 변화 실험','루틴 수정'],'관리직, 반복 유지형 업무'],42:['적응 성장형','학습 루틴은 약할 수 있지만 실제 변화와 도약의 힘은 있습니다. 부딪히며 자랍니다.',['회복력','도약력','전환기 적응'],['일상 학습 습관'],'영업, 현장직, 전환기 조직 역할'],43:['지식 축적형','배우는 힘은 강하지만 실제 변화는 느립니다. 많이 알지만 잘 안 바뀌는 구조입니다.',['전문성','축적력','지적 깊이'],['행동 연결','실험 루틴'],'연구, 교수, 전문가, 분석 직무'],44:['완성 진화형','학습과 변화가 모두 강한 통합형입니다. 이해하고 실제로 바꾸는 힘이 큽니다.',['성장력','혁신력','통합력'],['자기 압박 완화','지속성 확보'],'혁신가, 리더, 창조자, 고급 상담/기획']};
 const DRIVE={11:['정체형 은둔자','잘 드러나지 않고 잘 맞추지도 않으며, 배우고 바뀌는 힘도 약한 편입니다.',['조용한 유지','저자극 생존'],['정체','무기력','존재감 약화'],'방관자, 정지형 생존자'],12:['도약형 은둔자','평소엔 잠잠하지만 어떤 계기를 만나면 크게 바뀔 수 있는 잠복형 구조입니다.',['잠재력','반전 가능성'],['과소평가','장기 잠복'],'잠복형 변환자, 늦게 피는 사람'],13:['축적형 은둔자','조용히 배우고 쌓는 힘이 큽니다. 다만 현실 변화는 느릴 수 있습니다.',['지식 축적','사색의 깊이'],['현실 변화 지연','고립'],'사색가, 기록자, 고독한 학자'],14:['성장형 은둔자','겉은 조용하지만 안에서는 꾸준히 성장하는 유형입니다.',['내적 성장','조용한 통찰'],['존재감 약화','드러남 부족'],'조용한 현자, 깊은 수련자'],21:['반복형 조율자','잘 맞추지만 늘 같은 자리에서 지치기 쉬운 조율형 반복 구조입니다.',['협조성','역할 수행'],['소진 반복','자기 소실'],'눈치형 실무자, 소진형 조력자'],22:['도약형 조율자','평소엔 조용히 버티다가 어떤 계기를 통해 크게 바뀌는 조율형입니다.',['회복력','적응력'],['평소 자기 방향 약함','소진 후 변화'],'생존형 실무자, 회복형 조력자'],23:['축적형 조율자','잘 맞추고 잘 쌓지만 크게 바뀌진 않는 운영형 구조입니다.',['안정적 운영','상황 읽기'],['자기 색 약화','변화 지연'],'참모, 운영 전문가'],24:['성장형 조율자','잘 맞추고 잘 배우고 실제로도 잘 자라는 조율형입니다.',['중재력','성장력'],['과책임','자기삭제'],'코치, 중재자, 치유형 실무자'],31:['반복형 독주자','자기 방식으로 강하게 나아가지만 비슷한 패턴을 반복하기 쉽습니다.',['추진력','뚝심'],['독주','반복 실수'],'폭주형 개척자, 고집 기관차'],32:['도약형 독주자','자기 방식은 강하고, 어떤 충격 이후 크게 바뀌는 유형입니다.',['대전환 가능성','결단력'],['중간 조정 약함','큰 손실 뒤 변화'],'승부사, 자기혁신형'],33:['축적형 독주자','자기 방식대로 배우고 쌓지만 크게 방향을 바꾸지는 않는 장인형입니다.',['전문성','완성도'],['유연성 부족','변화 느림'],'장인, 연구 몰입형'],34:['성장형 독주자','자기 방식대로 밀고 가면서도 실제 성장과 진화를 만들어내는 유형입니다.',['독립 성장','창조성'],['협업 피로','관계 마찰'],'개척자, 창조적 장인'],41:['반복형 지휘자','잘 움직이고 잘 조정하지만 늘 비슷한 방식으로 반복하기 쉬운 리더형입니다.',['현장 장악','즉각 반응'],['관성','반복 실수'],'돌격대장, 관성형 리더'],42:['도약형 지휘자','현장에서 부딪히며 배우고 크게 바뀌는 위기 돌파형입니다.',['전환기 적응','도약력'],['평소 학습 약함'],'현장 리더, 위기 돌파자'],43:['축적형 지휘자','잘 운영하고 잘 배우지만, 실제 삶의 변화는 느린 편입니다.',['운영력','전략성'],['알지만 안 바뀜'],'전략가, 베테랑 관리자'],44:['완성형 운전자','잘 드러내고 잘 맞추며, 잘 배우고 잘 바뀌는 가장 통합적 운전방식입니다.',['통합 운영','성장력'],['과한 자기 부담'],'지휘관, 마스터 드라이버']};
+const DETAIL_RESULTS = {
+  "1111": {
+    title: "1111 · 멈춘 엔진형 × 정체형 은둔자",
+    identity: "움직이지 않음으로 버티는 사람입니다.",
+    summary: "의지도 반응도 낮아 스스로를 크게 밀어붙이지 않고, 타인의 의지에도 쉽게 휩쓸리지 않습니다. 이성과 공감도 모두 과열되지 않아 심리적 소음은 적지만, 출력·대응·학습·진화까지 모두 낮게 작동하면 삶이 아주 작은 반응 위에서 정지한 듯 유지될 수 있습니다.",
+    relationship: "사람과 빠르게 엮이지 않고, 가까워진 뒤에도 감정을 크게 표현하지 않는 편입니다. 차갑다기보다 반응의 힘이 약한 쪽에 가깝습니다. 갈등은 적극적으로 풀기보다 조용히 멀어지며 끝낼 가능성이 큽니다.",
+    romance: "연애에서는 뜨겁게 밀어붙이는 스타일이 아닙니다. 좋아해도 표현이 약해 관계가 자연스럽게 사라질 수 있습니다. 사랑이 없는 것이 아니라 사랑을 움직이는 엔진이 작다고 보는 편이 정확합니다.",
+    work: "빠른 성과 경쟁, 즉각 대응, 높은 사회성이 필요한 환경에서는 쉽게 지칩니다. 반복적이고 단순하며 조용한 환경, 무너지지 않고 오래 가는 방식과 더 잘 맞습니다.",
+    money: "공격적인 투자나 큰 리스크에는 잘 끌리지 않습니다. 문제는 무리한 투자보다 무관심한 방치입니다. 단순한 저축, 자동화된 관리, 작은 재무 루틴이 중요합니다.",
+    health: "에너지와 움직임이 낮아 활력, 순환, 근육, 생활 리듬이 약해질 수 있습니다. 격한 운동보다 걷기, 수면 고정, 식사 시간 유지 같은 기본 루틴 회복이 먼저입니다.",
+    ages: "10대엔 조용하고 눈에 띄지 않는 아이, 20대엔 뒤처진 느낌을 받기 쉽고, 30대엔 방향 없는 버팀이 공허감으로 이어질 수 있습니다. 50대 이후엔 비교가 줄수록 고요한 안정이 장점으로 드러날 수 있습니다.",
+    society: "빠른 반응, 자기PR, 끊임없는 자기계발을 요구하는 최근 한국 사회에선 불리합니다. 반대로 과열, 비교, 감정노동의 압력에는 덜 타는 구조이기도 합니다.",
+    maximize: "조용한 안정성과 저자극 환경 적응력을 장점으로 인식하십시오. 작은 선택과 작은 실행을 기록하며 ‘내가 움직였다’는 감각을 키우는 것이 좋습니다.",
+    minimize: "무기력을 성격으로 확정하지 마십시오. 하루 하나의 출력, 아주 짧은 산책, 연락 하나 같은 미세한 행동을 루틴으로 만드는 것이 중요합니다.",
+    finalAdvice: "당신에게 필요한 것은 거대한 변화가 아니라 생동감의 회복입니다. 살아 있다는 느낌, 아주 가늘게라도 세상과 연결되어 있다는 감각이 먼저 돌아와야 합니다.",
+    authHint: "원래부터 조용하고 자극을 덜 원했으며 큰 욕망보다 안정이 중요했다면 근본형일 수 있습니다. 반대로 번아웃, 장기 우울, 반복된 실패 이후 이렇게 굳어졌다면 수축된 적응형일 가능성이 높습니다."
+  },
+  "1112": {
+    title: "1112 · 멈춘 엔진형 × 도약형 은둔자",
+    identity: "평소엔 멈춰 있지만, 어떤 계기 앞에서는 크게 바뀔 수 있는 사람입니다.",
+    summary: "의지와 반응은 모두 낮아 평소에는 조용하고 느리게 작동합니다. 이성과 공감도 과열되지 않아 심리적 소음은 적습니다. 출력과 대응 역시 낮지만, 학습보다 진화 쪽의 도약성이 살아 있어 어떤 사건이나 결심을 만나면 예상보다 크게 방향을 틀 수 있습니다.",
+    relationship: "일반 관계에서는 조용하고 큰 존재감을 드러내지 않습니다. 하지만 관계에 대한 결론이 안에서 오래 진행되다가 어느 날 갑자기 크게 정리되거나 완전히 새로운 방향으로 바뀔 수 있습니다.",
+    romance: "느리게 사랑하고 늦게 결심하지만, 결심은 크게 하는 편입니다. 사랑이 없는 것이 아니라 사랑이 움직이는 속도가 느립니다. 오래 참고 있다가 갑자기 관계를 정리하거나, 오랫동안 미루던 선택을 한 번에 결정할 수 있습니다.",
+    work: "초반 추진력은 작아 보여도 의미를 만나면 의외의 집중과 결단을 보입니다. 꾸준한 상승형보다는 전환형 성장 구조에 가깝습니다. 평소엔 존재감이 작다가 어느 순간 완전히 다른 길로 가기도 합니다.",
+    money: "평소에는 투자나 재무관리에 무관심할 수 있지만, 특정 계기 후 자산 구조를 크게 바꾸는 식의 패턴이 나타날 수 있습니다. 무관심의 방치와 충동적 전환 사이의 간격을 줄이는 것이 중요합니다.",
+    health: "평소 관리보다 경고 이후 전환형에 가깝습니다. 건강검진 결과나 몸의 큰 신호가 오기 전까지 움직이지 않을 수 있어 위험합니다. 아주 낮은 에너지에서도 유지 가능한 루틴이 필요합니다.",
+    ages: "10대엔 조용하고 존재감이 약해 보이지만, 20대부터 전환의 씨앗이 생길 수 있습니다. 30~40대에는 억지로 맞추기보다 큰 방향 전환을 선택하는 장면이 나타나기 쉽고, 이후엔 자기 타이밍을 알수록 편안해집니다.",
+    society: "즉각 반응과 빠른 성과를 요구하는 한국 사회에서는 뒤처져 보일 수 있습니다. 반대로 과열된 유행과 감정 소모에는 비교적 덜 휘둘립니다. 이 유형의 강점은 남들 속도가 아니라 자기 전환의 타이밍에 있습니다.",
+    maximize: "조용한 잠복기를 무가치하게 보지 말고, 무엇이 나를 움직이게 하는지 기록해두십시오. 큰 전환점이 왔을 때 잡을 수 있도록 작은 준비를 계속하는 것이 좋습니다.",
+    minimize: "무너질 때까지 참지 마십시오. 큰 결단 전에 작은 조정을 연습하고, 불편과 피로의 신호를 미리 읽는 습관을 만들어야 합니다.",
+    finalAdvice: "당신은 늘 늦는 사람이 아니라, 자기 타이밍이 따로 있는 사람일 수 있습니다. 그 타이밍을 기다리기만 하지 말고, 왔을 때 잡을 수 있는 작은 리듬을 평소에 유지하십시오.",
+    authHint: "어릴 때부터 조용하지만 인생의 몇몇 순간에 아주 큰 결정을 내린 패턴이 반복됐다면 근본형일 수 있습니다. 반대로 오랜 억압 끝에 참다가 폭발하는 식으로만 변해왔다면 적응형일 가능성이 큽니다."
+  },
+  "1113": {
+    title: "1113 · 멈춘 엔진형 × 축적형 은둔자",
+    identity: "조용히 멈춰 있는 듯 보이지만, 안에서는 계속 쌓고 있는 사람입니다.",
+    summary: "의지와 반응은 낮아 바깥으로 강하게 움직이지 않습니다. 이성과 공감도 과열되지 않아 심리적 소음이 적습니다. 출력과 대응 역시 작지만, 학습은 강하고 진화는 약해 안에서는 많이 쌓고 오래 생각하되 바깥 변화는 느린 구조입니다.",
+    relationship: "즉시 공감형이 아니라 축적 공감형에 가깝습니다. 사람을 만나자마자 뜨겁게 반응하지는 않지만, 시간을 두고 오래 생각하고 기억합니다. 문제는 그 깊이가 상대에게 잘 전달되지 않는다는 점입니다.",
+    romance: "천천히 스며들고 오래 생각하는 사랑에 가깝습니다. 좋아하는 감정이 생겨도 바로 드러나지 않을 수 있습니다. 느끼는 것과 표현하는 것의 간격이 커서 오해를 받기 쉽습니다.",
+    work: "깊이 있게 배우고 오래 쌓는 역할에 잘 맞습니다. 자료, 연구, 기록, 구조화, 장기 축적형 일에서 힘이 납니다. 문제는 그 축적이 실제 성과와 변화로 연결되지 않을 때입니다.",
+    money: "충동적 투자보다는 정보를 모으고 관찰하는 편입니다. 다만 많이 배우고도 실행이 늦어질 수 있습니다. 무모해서 실패하기보다 지나치게 미뤄 기회를 놓칠 가능성을 먼저 점검해야 합니다.",
+    health: "정신적 축적은 큰데 신체적 순환은 약해질 수 있습니다. 건강도 공부처럼 접근해 정보는 많이 쌓되 실행은 늦어질 수 있습니다. 몸을 쓰는 루틴을 작은 단위로라도 연결해야 합니다.",
+    ages: "10대엔 혼자 생각이 많고 자기 세계가 빨리 생길 수 있습니다. 20대엔 느린 자신을 의심하기 쉽고, 30~40대엔 축적이 전문성으로 이어질 수도, 고립으로 굳을 수도 있습니다. 이후엔 조용한 통찰이 장점으로 드러날 수 있습니다.",
+    society: "빠른 실행과 짧은 성과를 선호하는 한국 사회에선 느리고 답답해 보일 수 있습니다. 반대로 너무 얕은 시대를 견디는 깊이와 안정성을 가진 드문 구조이기도 합니다.",
+    maximize: "기록, 정리, 글쓰기, 연구처럼 축적이 자산이 되는 구조를 만들어야 합니다. 깊이를 부끄러워하지 말고, 오래 쌓은 것을 작은 결과물로라도 바깥에 연결하십시오.",
+    minimize: "더 배우는 것만 반복하지 말고 작은 실행을 하나씩 붙이십시오. 고립을 깊이로 착각하지 않는 것이 중요합니다.",
+    finalAdvice: "당신의 문제는 무가치함이 아니라 깊이가 너무 안쪽에 머문다는 데 있습니다. 이미 쌓은 것을 세상과 아주 조금이라도 연결하는 순간, 당신의 축적은 힘이 됩니다.",
+    authHint: "원래부터 혼자 생각하고 정리하는 시간이 편했고 깊게 파고드는 습관이 있었다면 근본형일 수 있습니다. 반대로 최근 상처 이후 바깥을 포기하고 안쪽에만 쌓기 시작했다면 적응형일 수 있습니다."
+  },
+  "1114": {
+    title: "1114 · 멈춘 엔진형 × 성장형 은둔자",
+    identity: "겉은 조용하지만, 안에서는 꾸준히 자라고 있는 사람입니다.",
+    summary: "의지와 반응은 낮아 세상을 크게 밀어붙이진 않습니다. 이성과 공감도 과열되지 않아 비교적 고요한 구조입니다. 출력과 대응은 낮지만 학습과 진화가 모두 강해, 드러남은 작아도 안에서는 분명한 성장과 변화가 일어나는 유형입니다.",
+    relationship: "관계에서 요란한 존재감은 없지만 시간이 갈수록 신뢰가 쌓입니다. 먼저 중심이 되기보다 오래 보며 이해하고 쉽게 휘둘리지 않는 편입니다. 순간적 매력보다 시간이 지나며 깊어지는 관계형입니다.",
+    romance: "뜨겁게 불타오르기보다 느리게 마음을 열고, 느리게 깊어지고, 조용히 성숙해지는 사랑에 가깝습니다. 연애가 감정 소비가 아니라 성숙의 통로가 될 수 있지만, 감정의 존재를 조금 더 보이게 하는 연습이 필요합니다.",
+    work: "처음부터 강하게 두각을 드러내진 않을 수 있습니다. 대신 시간이 갈수록 더 좋아지는 후반 성장형입니다. 깊은 학습, 장기 프로젝트, 조용한 집중, 장기 실력 축적이 필요한 일에 잘 맞습니다.",
+    money: "공격적인 승부보다 조용히 배우고 천천히 개선하는 구조가 잘 맞습니다. 장기 이해, 안정적 습관, 적립식 접근, 무리하지 않는 재무 루틴이 유리합니다.",
+    health: "기본 활력은 약할 수 있지만, 한 번 필요성을 이해하면 조용히 그러나 꾸준히 개선하는 힘이 있습니다. 강한 의지형이 아니라 조용한 개선형이므로 작고 오래 가는 루틴이 맞습니다.",
+    ages: "10대엔 조용하지만 안쪽 성장의 잠재력이 크고, 20대엔 남들과 다른 성장 곡선 때문에 불안할 수 있습니다. 30대 이후에는 조용한 성장의 흔적이 보이기 시작하며, 40~60대로 갈수록 깊이와 통찰이 강점으로 드러날 가능성이 큽니다.",
+    society: "빠른 성과와 강한 자기PR을 선호하는 한국 사회에선 초반 과소평가를 받기 쉽습니다. 그러나 과열 문명이 피로해질수록 당신의 지속성, 깊이, 고요한 성장성은 더 귀해질 수 있습니다.",
+    maximize: "고요한 성장의 흔적을 기록하고, 내 속도가 느린 것이 아니라 성장 곡선이 다르다는 사실을 인정하십시오. 혼자 성장한 것을 바깥과 연결할 작은 창구를 만드십시오.",
+    minimize: "느린 성장과 방치를 구분해야 합니다. 너무 조용히만 자라지 말고, 내 변화가 밖에도 보이게 작은 표현과 결과를 남기십시오.",
+    finalAdvice: "당신은 빨리 빛나는 사람이 아니라 오래 자라서 깊게 빛나는 사람일 수 있습니다. 그러니 지금 당장 남들만큼 뜨겁지 않다고 해서 스스로를 멈춘 사람으로 오해하지 마십시오.",
+    authHint: "원래부터 조용했고, 혼자 있는 시간이 편했고, 시간이 갈수록 더 단단해지는 패턴이 있었다면 근본형일 가능성이 큽니다. 반대로 예전엔 더 활발했는데 최근 몇 년 사이 조용한 성장형으로만 남았다면 적응형일 수 있습니다."
+  }
+};
 const LABELS=['전혀 아니다','아니다','보통이다','그렇다','매우 그렇다'];const ANS=Array(32).fill(null);let idx=0,last=null;
 function startTest(){document.getElementById('landing').classList.add('hidden');document.getElementById('test').classList.remove('hidden');document.getElementById('result').classList.add('hidden');window.scrollTo({top:0,behavior:'smooth'});render()}
 function resetTest(){ANS.fill(null);idx=0;document.getElementById('result').classList.add('hidden');document.getElementById('test').classList.remove('hidden');render();window.scrollTo({top:0,behavior:'smooth'})}
@@ -40,7 +160,7 @@ function render(){const q=QUESTIONS[idx];qAxis.textContent=q[0];qText.textConten
 function avg(a){return a.reduce((x,y)=>x+y,0)/a.length}function digit(a,b){return a>=3.5&&b>=3.5?'4':a>=3.5&&b<3.5?'3':a<3.5&&b>=3.5?'2':'1'}
 function renderList(id,arr){const el=document.getElementById(id);el.innerHTML='';[...new Set(arr)].slice(0,4).forEach(v=>{const li=document.createElement('li');li.textContent=v;el.appendChild(li)})}
 function synth(engine,drive,code){const fit=[`${engine[0]}의 핵심 에너지가 ${drive[0]} 방식과 만나 현재 삶의 결을 만듭니다.`],conflict=[],improve=[...engine[3],...drive[2].slice(0,2).map(v=>`${v}를 반복 패턴으로 점검하기`)],strength=[...engine[2].slice(0,2),...drive[1].slice(0,2)];const e=code.slice(0,2),d=code.slice(2,4);if(['22','24','12'].includes(e)&&['21','11'].includes(d)){conflict.push('예민한 엔진이 수축형 운전방식과 만나 감정이 안쪽에 갇히기 쉽습니다.');fit.push('섬세함이 깊은 관찰력과 치유 감수성으로 바뀔 수 있습니다.')}if(['13','14','33','34'].includes(e)&&['31','41'].includes(d)){conflict.push('강한 엔진이 반복형 운전방식과 만나 독주·관성·번아웃이 생기기 쉽습니다.');fit.push('방향만 맞으면 강한 추진력과 성과를 만들 수 있습니다.')}if(['24','14','44'].includes(e)&&['44','24','34'].includes(d))fit.push('엔진과 운전방식의 결이 비교적 잘 맞아 자연스러운 시너지가 납니다.');if(['11','12','21'].includes(e)&&['44','34','24'].includes(d))conflict.push('겉으로는 강하게 수행하지만 안쪽 엔진은 쉽게 소모될 수 있어 적응형 가능성을 의심해야 합니다.');if(['43','44','23'].includes(e)&&['13','23','43'].includes(d)){fit.push('분석과 축적의 힘이 커서 전문성, 전략성, 구조 설계 능력이 강해집니다.');conflict.push('이해가 충분하다는 이유로 실제 변화가 늦어질 수 있습니다.')}if(!conflict.length)conflict.push('장점이 강해질수록 같은 방향의 그림자도 커질 수 있습니다.','과로, 과공감, 과독주처럼 반복되는 패턴이 있는지 점검해보세요.');return{summary:`${engine[0]} 엔진이 ${drive[0]} 방식으로 현실에서 발현되는 구조입니다. ${engine[1]} ${drive[1]}`,fit,conflict,improve,strength,careers:`${engine[4]} · ${drive[3]}`,auth:'이 결과가 오래 반복된 패턴이라면 근본형일 가능성이 높습니다. 최근 직장·가족·관계 스트레스가 강하다면 적응형 결과가 섞였을 수 있습니다. 혼자 있을 때와 덜 긴장한 상태에서도 비슷하게 작동하는지 확인해보세요.'}}
-function showResult(){const g={will:[],response:[],reason:[],empathy:[],output:[],adapt:[],learn:[],evolve:[]};QUESTIONS.forEach((q,i)=>{let v=ANS[i];if(q[3])v=6-v;g[q[2]].push(v)});const a1=digit(avg(g.will),avg(g.response)),a2=digit(avg(g.reason),avg(g.empathy)),a3=digit(avg(g.output),avg(g.adapt)),a4=digit(avg(g.learn),avg(g.evolve));const code=`${a1}${a2}${a3}${a4}`;const engine=ENGINE[+(`${a1}${a2}`)],drive=DRIVE[+(`${a3}${a4}`)],r=synth(engine,drive,code);rCode.textContent=code;rTitle.textContent=`${engine[0]} × ${drive[0]}`;rSummary.textContent=r.summary;engine.textContent=engine[1];drive.textContent=drive[1];renderList('fit',r.fit);renderList('conflict',r.conflict);renderList('improve',r.improve);renderList('strength',r.strength);career.textContent=r.careers;auth.textContent=r.auth;last={code,engine:engine[0],drive:drive[0],summary:r.summary};document.getElementById('test').classList.add('hidden');document.getElementById('result').classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'})}
+function showResult(){const g={will:[],response:[],reason:[],empathy:[],output:[],adapt:[],learn:[],evolve:[]};QUESTIONS.forEach((q,i)=>{let v=ANS[i];if(q[3])v=6-v;g[q[2]].push(v)});const a1=digit(avg(g.will),avg(g.response)),a2=digit(avg(g.reason),avg(g.empathy)),a3=digit(avg(g.output),avg(g.adapt)),a4=digit(avg(g.learn),avg(g.evolve));const code=`${a1}${a2}${a3}${a4}`;const engineData=ENGINE[+(`${a1}${a2}`)],driveData=DRIVE[+(`${a3}${a4}`)],r=synth(engineData,driveData,code),detail=DETAIL_RESULTS[code];rCode.textContent=code;rTitle.textContent=detail?detail.title:`${engineData[0]} × ${driveData[0]}`;rSummary.textContent=r.summary;engine.textContent=engineData[1];drive.textContent=driveData[1];renderList('fit',r.fit);renderList('conflict',r.conflict);renderList('improve',r.improve);renderList('strength',r.strength);career.textContent=r.careers;if(detail){document.getElementById('identity').textContent=detail.identity;document.getElementById('summaryDetail').textContent=detail.summary;document.getElementById('relationship').textContent=detail.relationship;document.getElementById('romance').textContent=detail.romance;document.getElementById('work').textContent=detail.work;document.getElementById('money').textContent=detail.money;document.getElementById('health').textContent=detail.health;document.getElementById('ages').textContent=detail.ages;document.getElementById('society').textContent=detail.society;document.getElementById('maximize').textContent=detail.maximize;document.getElementById('minimize').textContent=detail.minimize;document.getElementById('finalAdvice').textContent=detail.finalAdvice;document.getElementById('authHint').textContent=detail.authHint;}else{document.getElementById('identity').textContent='이 조합의 상세 결과는 아직 준비 중입니다.';document.getElementById('summaryDetail').textContent='현재는 대표 엔진과 운전방식 중심의 결과가 제공됩니다. 같은 형식으로 나머지 엔진군을 계속 확장하면 됩니다.';document.getElementById('relationship').textContent='상세 해석 준비 중';document.getElementById('romance').textContent='상세 해석 준비 중';document.getElementById('work').textContent='상세 해석 준비 중';document.getElementById('money').textContent='상세 해석 준비 중';document.getElementById('health').textContent='상세 해석 준비 중';document.getElementById('ages').textContent='상세 해석 준비 중';document.getElementById('society').textContent='상세 해석 준비 중';document.getElementById('maximize').textContent='상세 해석 준비 중';document.getElementById('minimize').textContent='상세 해석 준비 중';document.getElementById('finalAdvice').textContent='현재 구조를 참고해 나머지 엔진군을 순차적으로 추가하면 됩니다.';document.getElementById('authHint').textContent='상세 적응형/근본형 판별 힌트 준비 중';}last={code,engine:engineData[0],drive:driveData[0],summary:r.summary};document.getElementById('test').classList.add('hidden');document.getElementById('result').classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'})}
 async function copyResult(){if(!last)return;try{await navigator.clipboard.writeText(`EETI 결과\n코드: ${last.code}\n엔진: ${last.engine}\n운전방식: ${last.drive}\n요약: ${last.summary}`);alert('결과가 복사되었습니다.')}catch{alert('복사에 실패했습니다.')}}
 </script>
 </body>
