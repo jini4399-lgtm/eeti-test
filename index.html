@@ -3034,101 +3034,277 @@ const LABELS=['전혀 아니다','아니다','보통이다','그렇다','매우 
 const ANS=Array(32).fill(null);
 let idx=0,last=null,autoAdvanceLock=false;
 
-function startTest(){document.getElementById('landing').classList.add('hidden');document.getElementById('about').classList.add('hidden');document.getElementById('test').classList.remove('hidden');document.getElementById('result').classList.add('hidden');window.scrollTo({top:0,behavior:'smooth'});render()}
-function resetTest(){ANS.fill(null);idx=0;last=null;document.getElementById('result').classList.add('hidden');document.getElementById('test').classList.remove('hidden');render();window.scrollTo({top:0,behavior:'smooth'})}
-function prevQ(){if(idx>0){idx--;render()}}
-function nextQ(){if(ANS[idx]==null)return;if(idx<31){idx++;render()}else showResult()}
-function render(){const q=QUESTIONS[idx];document.getElementById('qAxis').textContent=q[0];document.getElementById('qText').textContent=q[1];document.getElementById('pLabel').textContent=`문항 ${idx+1} / 32`;const pct=Math.round(((idx+1)/32)*100);document.getElementById('pPct').textContent=`${pct}%`;document.getElementById('pFill').style.width=`${pct}%`;const opts=document.getElementById('opts');opts.innerHTML='';LABELS.forEach((t,i)=>{const v=i+1,b=document.createElement('button');b.type='button';b.className='opt'+(ANS[idx]===v?' active':'');b.innerHTML=`<span class="num">${v}</span><span class="txt">${t}</span>`;b.onclick=()=>{if(autoAdvanceLock)return;ANS[idx]=v;render();autoAdvanceLock=true;setTimeout(()=>{autoAdvanceLock=false;if(idx<31){idx++;render()}else{showResult()}},120)};opts.appendChild(b)});document.getElementById('prev').disabled=idx===0;const next=document.getElementById('next');next.disabled=ANS[idx]==null;next.textContent=idx===31?'결과 보기':'다음'}
 function avg(a){return a.reduce((x,y)=>x+y,0)/a.length}
 function digit(a,b){return a>=3.5&&b>=3.5?'4':a>=3.5&&b<3.5?'3':a<3.5&&b>=3.5?'2':'1'}
-function renderList(id,arr){const el=document.getElementById(id);el.innerHTML='';arr.forEach(v=>{const li=document.createElement('li');li.textContent=v;el.appendChild(li)})}
-function synth(engine,drive,code){const detail=DETAIL_RESULTS[code];if(detail&&detail.fitDeep){return{summary:`${engine[0]} 엔진이 ${drive[0]} 방식으로 현실에서 발현되는 구조입니다. ${engine[1]} ${drive[1]}`,fit:detail.fitDeep,conflict:detail.conflictDeep,improve:detail.improveDeep,strength:detail.strengthDeep,engineDeep:detail.engineDeep,driveDeep:detail.driveDeep,header:detail.header}}const fit=[`${engine[0]}의 핵심 에너지가 ${drive[0]} 방식과 만나 현재 삶의 결을 만듭니다.`,`${engine[0]}의 장점은 ${engine[2].slice(0,2).join(', ')} 쪽에서 나타날 가능성이 큽니다.`,`운전방식은 ${drive[1]}의 결을 띠며, 현실에서는 ${drive[2].slice(0,2).join(', ')} 문제가 그림자로 생길 수 있습니다.`],conflict=[`이 조합은 ${engine[0]} 엔진과 ${drive[0]} 방식의 마찰이 삶에서 반복 주제로 나타날 수 있습니다.`,`장점이 강할수록 같은 방향의 그림자도 함께 커질 수 있습니다.`,`과로, 과공감, 과독주, 과정지 중 무엇이 반복되는지 점검해보세요.`],improve=[...engine[3].map(v=>`${v}를 생활 루틴으로 설계하기`),...drive[2].slice(0,2).map(v=>`${v}를 조기에 감지하고 수정하기`)],strength=[...engine[2].map(v=>`${v}을(를) 강점 자산으로 키우기`),`${drive[0]} 특유의 작동 방식을 전문성으로 번역하기`];return{summary:`${engine[0]} 엔진이 ${drive[0]} 방식으로 현실에서 발현되는 구조입니다. ${engine[1]} ${drive[1]}`,fit,conflict,improve,strength,engineDeep:engine[1],driveDeep:drive[1],header:`${code} ${engine[0]}, ${drive[0]}`}}
-function showResult() {
-  const g = {
-    will: [],
-    response: [],
-    reason: [],
-    empathy: [],
-    output: [],
-    adapt: [],
-    learn: [],
-    evolve: []
-  };
 
-  QUESTIONS.forEach((q, i) => {
-    let v = ANS[i];
-    if (q[3]) v = 6 - v;
+function renderList(id,arr){
+  const el=document.getElementById(id);
+  if(!el) return;
+  el.innerHTML='';
+  arr.forEach(v=>{
+    const li=document.createElement('li');
+    li.textContent=v;
+    el.appendChild(li);
+  });
+}
+
+function synth(engine,drive,code){
+  const detail=DETAIL_RESULTS[code];
+  if(detail&&detail.fitDeep){
+    return{
+      summary:`${engine[0]} 엔진이 ${drive[0]} 방식으로 현실에서 발현되는 구조입니다. ${engine[1]} ${drive[1]}`,
+      fit:detail.fitDeep,
+      conflict:detail.conflictDeep,
+      improve:detail.improveDeep,
+      strength:detail.strengthDeep,
+      engineDeep:detail.engineDeep,
+      driveDeep:detail.driveDeep,
+      header:detail.header
+    };
+  }
+  const fit=[
+    `${engine[0]}의 핵심 에너지가 ${drive[0]} 방식과 만나 현재 삶의 결을 만듭니다.`,
+    `${engine[0]}의 장점은 ${engine[2].slice(0,2).join(', ')} 쪽에서 나타날 가능성이 큽니다.`,
+    `운전방식은 ${drive[1]}의 결을 띠며, 현실에서는 ${drive[2].slice(0,2).join(', ')} 문제가 그림자로 생길 수 있습니다.`
+  ];
+  const conflict=[
+    `이 조합은 ${engine[0]} 엔진과 ${drive[0]} 방식의 마찰이 삶에서 반복 주제로 나타날 수 있습니다.`,
+    `장점이 강할수록 같은 방향의 그림자도 함께 커질 수 있습니다.`,
+    `과로, 과공감, 과독주, 과정지 중 무엇이 반복되는지 점검해보세요.`
+  ];
+  const improve=[
+    ...engine[3].map(v=>`${v}를 생활 루틴으로 설계하기`),
+    ...drive[2].slice(0,2).map(v=>`${v}를 조기에 감지하고 수정하기`)
+  ];
+  const strength=[
+    ...engine[2].map(v=>`${v}을(를) 강점 자산으로 키우기`),
+    `${drive[0]} 특유의 작동 방식을 전문성으로 번역하기`
+  ];
+  return{
+    summary:`${engine[0]} 엔진이 ${drive[0]} 방식으로 현실에서 발현되는 구조입니다. ${engine[1]} ${drive[1]}`,
+    fit, conflict, improve, strength,
+    engineDeep:engine[1],
+    driveDeep:drive[1],
+    header:`${code} ${engine[0]}, ${drive[0]}`
+  };
+}
+
+function render(){
+  const q=QUESTIONS[idx];
+  document.getElementById('qAxis').textContent=q[0];
+  document.getElementById('qText').textContent=q[1];
+  document.getElementById('pLabel').textContent=`문항 ${idx+1} / 32`;
+
+  const pct=Math.round(((idx+1)/32)*100);
+  document.getElementById('pPct').textContent=`${pct}%`;
+  document.getElementById('pFill').style.width=`${pct}%`;
+
+  const opts=document.getElementById('opts');
+  opts.innerHTML='';
+
+  LABELS.forEach((t,i)=>{
+    const v=i+1;
+    const b=document.createElement('button');
+    b.type='button';
+    b.className='opt'+(ANS[idx]===v?' active':'');
+    b.innerHTML=`<span class="num">${v}</span><span class="txt">${t}</span>`;
+    b.onclick=()=>{
+      if(autoAdvanceLock) return;
+      ANS[idx]=v;
+      render();
+      autoAdvanceLock=true;
+      setTimeout(()=>{
+        autoAdvanceLock=false;
+        if(idx<31){
+          idx++;
+          render();
+        }else{
+          showResult();
+        }
+      },120);
+    };
+    opts.appendChild(b);
+  });
+
+  document.getElementById('prev').disabled=idx===0;
+  const next=document.getElementById('next');
+  next.disabled=ANS[idx]==null;
+  next.textContent=idx===31?'결과 보기':'다음';
+}
+
+function showResult(){
+  const g={will:[],response:[],reason:[],empathy:[],output:[],adapt:[],learn:[],evolve:[]};
+
+  QUESTIONS.forEach((q,i)=>{
+    let v=ANS[i];
+    if(q[3]) v=6-v;
     g[q[2]].push(v);
   });
 
-  const a1 = digit(avg(g.will), avg(g.response));
-  const a2 = digit(avg(g.reason), avg(g.empathy));
-  const a3 = digit(avg(g.output), avg(g.adapt));
-  const a4 = digit(avg(g.learn), avg(g.evolve));
+  const a1=digit(avg(g.will),avg(g.response));
+  const a2=digit(avg(g.reason),avg(g.empathy));
+  const a3=digit(avg(g.output),avg(g.adapt));
+  const a4=digit(avg(g.learn),avg(g.evolve));
 
-  const code = `${a1}${a2}${a3}${a4}`;
-  const engineData = ENGINE[+(`${a1}${a2}`)];
-  const driveData = DRIVE[+(`${a3}${a4}`)];
-  const detail = DETAIL_RESULTS[code];
-  const r = synth(engineData, driveData, code);
+  const code=`${a1}${a2}${a3}${a4}`;
+  const engineData=ENGINE[Number(`${a1}${a2}`)];
+  const driveData=DRIVE[Number(`${a3}${a4}`)];
+  const detail=DETAIL_RESULTS[code];
+  const r=synth(engineData,driveData,code);
 
-  document.getElementById('rHeader').textContent =
-    r.header || `${code} ${engineData[0]}, ${driveData[0]}`;
-  document.getElementById('rSummary').textContent = r.summary;
-  document.getElementById('engine').textContent = r.engineDeep || engineData[1];
-  document.getElementById('drive').textContent = r.driveDeep || driveData[1];
+  document.getElementById('rHeader').textContent=r.header||`${code} ${engineData[0]}, ${driveData[0]}`;
+  document.getElementById('rSummary').textContent=r.summary;
+  document.getElementById('engine').textContent=r.engineDeep||engineData[1];
+  document.getElementById('drive').textContent=r.driveDeep||driveData[1];
 
-  renderList('fit', r.fit);
-  renderList('conflict', r.conflict);
-  renderList('improve', r.improve);
-  renderList('strength', r.strength);
+  renderList('fit',r.fit);
+  renderList('conflict',r.conflict);
+  renderList('improve',r.improve);
+  renderList('strength',r.strength);
 
-  if (detail) {
-    document.getElementById('identity').textContent = detail.identity || '';
-    document.getElementById('summaryDetail').textContent = detail.summary || '';
-    document.getElementById('relationship').textContent = detail.relationship || '';
-    document.getElementById('romance').textContent = detail.romance || '';
-    document.getElementById('work').textContent = detail.work || '';
-    document.getElementById('money').textContent = detail.money || '';
-    document.getElementById('health').textContent = detail.health || '';
-    document.getElementById('ages').textContent = detail.ages || '';
-    document.getElementById('society').textContent = detail.society || '';
-    document.getElementById('maximize').textContent = detail.maximize || '';
-    document.getElementById('minimize').textContent = detail.minimize || '';
-    document.getElementById('finalAdvice').textContent = detail.finalAdvice || '';
-    document.getElementById('authHint').textContent = detail.authHint || '';
+  if(detail){
+    document.getElementById('identity').textContent=detail.identity||'';
+    document.getElementById('summaryDetail').textContent=detail.summary||'';
+    document.getElementById('relationship').textContent=detail.relationship||'';
+    document.getElementById('romance').textContent=detail.romance||'';
+    document.getElementById('work').textContent=detail.work||'';
+    document.getElementById('money').textContent=detail.money||'';
+    document.getElementById('health').textContent=detail.health||'';
+    document.getElementById('ages').textContent=detail.ages||'';
+    document.getElementById('society').textContent=detail.society||'';
+    document.getElementById('maximize').textContent=detail.maximize||'';
+    document.getElementById('minimize').textContent=detail.minimize||'';
+    document.getElementById('finalAdvice').textContent=detail.finalAdvice||'';
+    document.getElementById('authHint').textContent=detail.authHint||'';
   } else {
-    const temp = '이 조합의 상세 결과는 아직 준비 중입니다.';
-    document.getElementById('identity').textContent = temp;
-    document.getElementById('summaryDetail').textContent =
-      '현재는 대표 엔진과 공감 방식 중심의 결과가 제공됩니다. 같은 형식으로 나머지 엔진군을 계속 확장하면 됩니다.';
-    document.getElementById('relationship').textContent = temp;
-    document.getElementById('romance').textContent = temp;
-    document.getElementById('work').textContent = temp;
-    document.getElementById('money').textContent = temp;
-    document.getElementById('health').textContent = temp;
-    document.getElementById('ages').textContent = temp;
-    document.getElementById('society').textContent = temp;
-    document.getElementById('maximize').textContent = temp;
-    document.getElementById('minimize').textContent = temp;
-    document.getElementById('finalAdvice').textContent =
-      '지금은 엔진과 공감 방식의 결만 먼저 보시고, 이후 세부 리포트를 계속 확장하면 됩니다.';
-    document.getElementById('authHint').textContent = temp;
+    const temp='이 조합의 상세 결과는 아직 준비 중입니다.';
+    document.getElementById('identity').textContent=temp;
+    document.getElementById('summaryDetail').textContent='현재는 대표 엔진과 공감 방식 중심의 결과가 제공됩니다. 같은 형식으로 나머지 엔진군을 계속 확장하면 됩니다.';
+    document.getElementById('relationship').textContent=temp;
+    document.getElementById('romance').textContent=temp;
+    document.getElementById('work').textContent=temp;
+    document.getElementById('money').textContent=temp;
+    document.getElementById('health').textContent=temp;
+    document.getElementById('ages').textContent=temp;
+    document.getElementById('society').textContent=temp;
+    document.getElementById('maximize').textContent=temp;
+    document.getElementById('minimize').textContent=temp;
+    document.getElementById('finalAdvice').textContent='지금은 엔진과 공감 방식의 결만 먼저 보시고, 이후 세부 리포트를 계속 확장하면 됩니다.';
+    document.getElementById('authHint').textContent=temp;
   }
 
-  last = {
+  last={
     code,
-    header: document.getElementById('rHeader').textContent,
-    summary: r.summary
+    header:document.getElementById('rHeader').textContent,
+    summary:r.summary
   };
 
   document.getElementById('test').classList.add('hidden');
   document.getElementById('result').classList.remove('hidden');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.scrollTo({top:0,behavior:'smooth'});
 }
-async function copyResult(){if(!last)return;try{await navigator.clipboard.writeText(`EETI 결과
-${last.header}
-요약: ${last.summary}`);alert('결과가 복사되었습니다.')}catch(e){alert('복사에 실패했습니다.')}}
-function googleTranslateElementInit(){new google.translate.TranslateElement({pageLanguage:'ko',includedLanguages:'ko,en,ja,zh-CN,es',autoDisplay:false,layout:google.translate.TranslateElement.InlineLayout.SIMPLE},'google_translate_element')}async function updateVisitorCount(){const el=document.getElementById('visitorCount');if(!el)return;try{const res=await fetch('https://api.countapi.xyz/hit/kamaitsra-eeti/total-visits');const data=await res.json();if(data&&typeof data.value!=='undefined'){el.textContent=Number(data.value).toLocaleString('ko-KR');return}}catch(e){}try{const key='eeti_local_visits';const next=(parseInt(localStorage.getItem(key)||'0',10)||0)+1;localStorage.setItem(key,String(next));el.textContent=Number(next).toLocaleString('ko-KR')}catch(e2){el.textContent='1'}}document.addEventListener('DOMContentLoaded',()=>{updateVisitorCount()})
-</script><script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script></body>
+
+async function copyResult(){
+  if(!last) return;
+  try{
+    await navigator.clipboard.writeText(`EETI 결과\n${last.header}\n요약: ${last.summary}`);
+    alert('결과가 복사되었습니다.');
+  }catch(e){
+    alert('복사에 실패했습니다.');
+  }
+}
+
+function startTest(){
+  document.getElementById('landing').classList.add('hidden');
+  document.getElementById('about').classList.add('hidden');
+  document.getElementById('test').classList.remove('hidden');
+  document.getElementById('result').classList.add('hidden');
+  window.scrollTo({top:0,behavior:'smooth'});
+  render();
+}
+
+function resetTest(){
+  ANS.fill(null);
+  idx=0;
+  last=null;
+  document.getElementById('result').classList.add('hidden');
+  document.getElementById('test').classList.remove('hidden');
+  render();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function prevQ(){
+  if(idx>0){
+    idx--;
+    render();
+  }
+}
+
+function nextQ(){
+  if(ANS[idx]==null) return;
+  if(idx<31){
+    idx++;
+    render();
+  }else{
+    showResult();
+  }
+}
+
+async function updateVisitorCount(){
+  const el=document.getElementById('visitorCount');
+  if(!el) return;
+
+  try{
+    const res=await fetch('https://api.countapi.xyz/hit/kamaitsra-eeti/total-visits');
+    const data=await res.json();
+    if(data && typeof data.value !== 'undefined'){
+      el.textContent=Number(data.value).toLocaleString('ko-KR');
+      return;
+    }
+  }catch(e){
+    console.error('countapi 실패', e);
+  }
+
+  try{
+    const key='eeti_local_visits';
+    const next=(parseInt(localStorage.getItem(key)||'0',10)||0)+1;
+    localStorage.setItem(key,String(next));
+    el.textContent=Number(next).toLocaleString('ko-KR');
+  }catch(e2){
+    el.textContent='1';
+  }
+}
+
+function googleTranslateElementInit(){
+  if(!window.google || !google.translate || !google.translate.TranslateElement){
+    console.error('Google Translate 로드 실패');
+    return;
+  }
+  new google.translate.TranslateElement(
+    {
+      pageLanguage:'ko',
+      includedLanguages:'en,ja,zh-CN,es',
+      autoDisplay:false,
+      layout:google.translate.TranslateElement.InlineLayout.SIMPLE
+    },
+    'google_translate_element'
+  );
+}
+
+/* 핵심: 전역에 명시적으로 노출 */
+window.startTest = startTest;
+window.resetTest = resetTest;
+window.prevQ = prevQ;
+window.nextQ = nextQ;
+window.copyResult = copyResult;
+window.googleTranslateElementInit = googleTranslateElementInit;
+
+/* 초기화 */
+window.addEventListener('load', () => {
+  updateVisitorCount();
+});
+</script>
+
+<script async src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script></body>
 </html>
