@@ -1,3 +1,330 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EETI 검사, 당신의 공감 방식은 무엇입니까?</title>
+  <style>
+    :root{
+      --bg:#08111f;
+      --panel:rgba(15,24,41,.82);
+      --line:rgba(255,255,255,.1);
+      --txt:#f6f8fb;
+      --muted:#b9c4d6;
+      --a:#72b9ff;
+      --b:#ffbf7a;
+      --r:24px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Pretendard,sans-serif;
+      color:var(--txt);
+      background:
+        radial-gradient(circle at 20% 10%,rgba(80,130,255,.2),transparent 22%),
+        radial-gradient(circle at 85% 15%,rgba(255,150,80,.16),transparent 24%),
+        linear-gradient(180deg,#06101d,#091425 45%,#0b1422);
+      line-height:1.65;
+    }
+    a{color:#9fd0ff}
+    .container{width:min(1080px,calc(100vw - 32px));margin:0 auto}
+    .top{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:24px 0 10px;
+      position:sticky;
+      top:0;
+      backdrop-filter:blur(16px);
+      z-index:20;
+    }
+    .topActions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    .translatorWrap{min-width:180px}
+    #google_translate_element{display:flex;align-items:center;min-height:48px}
+    #google_translate_element .goog-te-gadget{
+      color:var(--muted)!important;
+      font-size:14px!important;
+      display:flex;
+      align-items:center
+    }
+    #google_translate_element .goog-te-gadget span{
+      display:inline!important;
+      color:var(--muted)!important;
+      font-size:14px!important;
+      margin-right:8px
+    }
+    #google_translate_element .goog-te-gadget .goog-te-combo{
+      background:rgba(255,255,255,.04);
+      color:var(--txt);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:14px;
+      padding:12px 14px;
+      font:inherit;
+      min-width:180px;
+      outline:none
+    }
+    .goog-logo-link{
+      display:inline!important;
+      color:var(--muted)!important;
+      font-size:14px!important;
+      margin-right:8px;
+      text-decoration:none!important
+    }
+    iframe.goog-te-banner-frame{display:none!important}
+    body{top:0!important}
+    .brand{display:flex;gap:14px;align-items:center}
+    .mark{
+      width:44px;height:44px;border-radius:14px;
+      background:linear-gradient(135deg,var(--a),var(--b));
+      display:grid;place-items:center;color:#08111f;font-weight:800
+    }
+    .sub{font-size:12px;color:var(--muted)}
+    .btn{
+      border:0;border-radius:16px;padding:14px 18px;
+      font:inherit;cursor:pointer
+    }
+    .primary{
+      background:linear-gradient(135deg,var(--a),var(--b));
+      color:#08111f;font-weight:800
+    }
+    .ghost{
+      background:rgba(255,255,255,.04);
+      color:var(--txt);
+      border:1px solid rgba(255,255,255,.12)
+    }
+    .card{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:var(--r);
+      box-shadow:0 18px 40px rgba(0,0,0,.35);
+      backdrop-filter:blur(18px)
+    }
+    .hero{
+      display:grid;
+      grid-template-columns:1.15fr .85fr;
+      gap:24px;
+      align-items:center;
+      padding:18px 0 40px
+    }
+    .badge{
+      display:inline-block;padding:9px 14px;border-radius:999px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.08);
+      color:#d9e7ff;font-size:14px
+    }
+    .hero h1{
+      font-size:clamp(38px,6vw,64px);
+      line-height:1.03;
+      letter-spacing:-.04em;
+      margin:18px 0
+    }
+    .grad{
+      background:linear-gradient(90deg,#a7d7ff 0%,#ffd69f 45%,#aef9d7 100%);
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent
+    }
+    .hero p{font-size:18px;line-height:1.75;color:var(--muted)}
+    .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+    .side{padding:24px}
+    .side h3{margin-top:0}
+    .side li{margin:10px 0;color:var(--muted);line-height:1.6}
+    .info{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:56px}
+    .info .card{padding:22px}
+    .info h3{margin-top:0}
+    .info p{color:var(--muted);line-height:1.7}
+    .hidden{display:none!important}
+    .test{max-width:860px;margin:0 auto 64px}
+    .progress{padding:18px 20px;margin-bottom:16px}
+    .meta{display:flex;justify-content:space-between;color:var(--muted);font-size:14px;margin-bottom:12px}
+    .bar{height:10px;border-radius:999px;background:rgba(255,255,255,.06);overflow:hidden}
+    .fill{height:100%;width:0;background:linear-gradient(90deg,var(--a),var(--b))}
+    .q{padding:28px}
+    .tag{
+      display:inline-block;padding:8px 12px;border-radius:999px;
+      background:rgba(255,255,255,.06);font-size:14px;color:#d6e2f5;margin-bottom:16px
+    }
+    .q h2{margin:0 0 20px;font-size:clamp(24px,3vw,36px);line-height:1.35}
+    .opts{display:grid;gap:12px}
+    .opt{
+      display:flex;gap:14px;align-items:center;padding:16px 18px;border-radius:18px;
+      background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.09);cursor:pointer
+    }
+    .opt:hover{background:rgba(255,255,255,.06)}
+    .opt.active{
+      border-color:rgba(255,191,122,.8);
+      background:linear-gradient(90deg,rgba(114,185,255,.12),rgba(255,191,122,.1))
+    }
+    .num{
+      width:36px;height:36px;border-radius:999px;background:rgba(255,255,255,.08);
+      display:grid;place-items:center;font-weight:700
+    }
+    .txt{color:var(--muted)}
+    .nav{display:flex;justify-content:space-between;gap:12px;margin-top:24px}
+    .resultH{padding:28px;margin-bottom:18px}
+    .resultH h2{font-size:clamp(28px,4vw,44px);line-height:1.2;margin:14px 0 10px}
+    .resultH p{line-height:1.75;color:var(--muted)}
+    .resultActions{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+    .resultGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .resultGrid.lower{grid-template-columns:repeat(2,1fr);margin-top:16px}
+    .resultGrid .card{padding:22px}
+    .resultGrid p,.resultGrid li{color:var(--muted);line-height:1.7}
+    .footer{
+      display:flex;justify-content:space-between;align-items:center;gap:12px;
+      color:rgba(255,255,255,.55);padding:28px 0 40px;font-size:14px
+    }
+    .visitor{display:flex;align-items:center;gap:8px;color:#d9e7ff}
+    .visitor strong{font-size:15px}
+    @media(max-width:980px){
+      .hero,.info,.resultGrid,.resultGrid.lower{grid-template-columns:1fr}
+    }
+    @media(max-width:640px){
+      .top{flex-direction:column;align-items:flex-start;gap:14px}
+      .topActions,.translatorWrap{width:100%}
+      #google_translate_element .goog-te-gadget .goog-te-combo{width:100%}
+      .nav,.resultActions{flex-direction:column}
+      .nav .btn,.resultActions .btn{width:100%}
+      .footer{flex-direction:column;align-items:flex-start}
+    }
+  </style>
+</head>
+<body>
+<header class="top container">
+  <div class="brand">
+    <div class="mark">E</div>
+    <div>
+      <div><strong>EETI</strong></div>
+      <div class="sub">Empathy Existence Type Indicator</div>
+    </div>
+  </div>
+  <div class="topActions">
+    <div id="google_translate_element" class="translatorWrap"></div>
+  </div>
+</header>
+
+<main class="container">
+  <section id="landing" class="hero">
+    <div>
+      <h1>EETI 검사, <span class="grad">당신의 공감 방식은 무엇입니까?</span></h1>
+      <p><strong>EETI는 성격을 가볍게 분류하는 검사가 아닙니다.</strong> EETI는 겉으로 보이는 성향보다 <strong>공감하는 방식</strong>을 봅니다. 자신과 타인의 공감 방식 속에서, 내가 무엇으로 움직이고 어떻게 반응하고 어떻게 변화하는지, 곧 <strong>존재의 구조</strong>를 읽기 위한 도구입니다.</p>
+      <div class="actions">
+        <button class="btn primary" id="startBtn" type="button">공감방식 검사 시작</button>
+        <button class="btn ghost" id="aboutBtn" type="button">EETI 소개 보기</button>
+      </div>
+    </div>
+    <div class="card side">
+      <h3>1. EETI 소개</h3>
+      <ul>
+        <li><strong>EETI는 공감방식을 알아보는 도구</strong>입니다.</li>
+        <li>이 검사는 당신의 성격보다 <strong>공감이 어떻게 작동하는지</strong>를 읽습니다.</li>
+        <li>겉성향보다 <strong>공감의 구조</strong>를 읽습니다.</li>
+        <li>결과는 <strong>4자리 코드</strong>와 해석 리포트로 나옵니다.</li>
+        <li>핵심 질문은 “나는 어떤 사람인가?”보다 <strong>“나는 어떻게 공감하는가?”</strong>입니다.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="about" class="info">
+    <article class="card">
+      <h3>2. EETI는 무엇을 봅니까?</h3>
+      <p>EETI는 겉으로 보이는 성향보다 <strong>공감하는 방식</strong>을 봅니다. 자신과 타인의 공감 방식 속에서, 내가 무엇으로 움직이고 어떻게 반응하고 어떻게 변화하는지, 곧 <strong>존재의 구조</strong>를 읽습니다.</p>
+    </article>
+    <article class="card">
+      <h3>3. 어떻게 결과가 나옵니까?</h3>
+      <p>문항을 통해 <strong>4개의 축</strong>을 측정합니다. 결과는 <strong>4자리 코드</strong>로 출력되며, 앞의 두 자리는 기본 공감엔진, 뒤의 두 자리는 그 공감이 현실에서 작동하는 운전방식을 뜻합니다.</p>
+      <p><strong>4축의 의미</strong><br>
+      ① 의지·반응: 무엇이 나를 움직이고 무엇에 내가 반응하는가<br>
+      ② 이성OS·공감OS: 나는 논리와 감정 중 무엇으로 먼저 처리하는가<br>
+      ③ 출력·대응: 나는 바깥으로 내보내는가, 바깥에 맞추는가<br>
+      ④ 학습·진화: 나는 무엇을 배우고 어떻게 달라지는가</p>
+      <p><strong>16가지 대표유형</strong><br>
+      11형 멈춘 엔진형 · 12형 흔들리는 수신형 · 13형 고립된 추진형 · 14형 완성형 추진자<br>
+      21형 감정 차단형 · 22형 상처받은 공감형 · 23형 차가운 분석형 · 24형 균형 잡힌 이해형<br>
+      31형 내부 소진형 · 32형 타인 중심 실행형 · 33형 독립 실행형 · 34형 완전 실행형<br>
+      41형 정체 유지형 · 42형 적응 성장형 · 43형 지식 축적형 · 44형 완성 진화형</p>
+    </article>
+    <article class="card">
+      <h3>4. 이 검사의 목적은 무엇입니까?</h3>
+      <p>EETI의 목적은 사람을 좋은 유형과 나쁜 유형으로 자르는 것이 아닙니다. <strong>내 공감방식을 이해하고</strong>, 반복되는 관계 문제, 소진 패턴, 성장 방식, 적응 방식까지 더 정교하게 읽어내기 위한 도구입니다.</p>
+    </article>
+    <article class="card">
+      <h3>5. EETI는 무엇을 기반으로 합니까?</h3>
+      <p>EETI는 <strong>공감이론</strong>을 기반으로 합니다. 출발점은 <strong>“의지에 반응하여 공감하면 존재한다”</strong>는 명제입니다. 존재는 고정된 성격이 아니라, 의지·반응·공감·변화의 흐름 속에서 형성된다고 보고, EETI는 그 흐름을 공감방식의 언어로 읽어냅니다.</p>
+    </article>
+    <article class="card">
+      <h3>6. 공감이론</h3>
+      <p>공감이론은 존재를 고정된 성격이나 단순한 심리 상태로 보지 않고, <strong>의지·반응·공감·존재</strong>의 흐름 속에서 이해하려는 관점입니다. 핵심 명제는 <strong>“의지에 반응하여 공감하면 존재한다”</strong>입니다. 즉 어떤 존재든 스스로의 의지와 외부의 반응이 만나 공감의 임계치를 넘을 때 비로소 선명한 존재로 드러난다고 봅니다. 인간의 관계, 사랑, 상처, 사회, 집단, 자연, 문명까지도 이 구조 안에서 다시 읽을 수 있습니다. EETI는 바로 이 공감이론을 바탕으로, 사람이 무엇에 반응하고 어떻게 흔들리고 어떻게 적응하고 성장하는지, 곧 <strong>공감방식의 구조</strong>를 해석하려는 도구입니다.</p>
+    </article>
+    <article class="card">
+      <h3>7. kamaitsra 공감 이론 채널</h3>
+      <p><strong>kamaitsra 티스토리</strong><br><a href="https://kamaitsra.tistory.com" target="_blank" rel="noopener noreferrer">https://kamaitsra.tistory.com</a></p>
+      <p><strong>kamaitsra 브런치</strong><br><a href="https://brunch.co.kr/@kamaitsra" target="_blank" rel="noopener noreferrer">https://brunch.co.kr/@kamaitsra</a></p>
+    </article>
+  </section>
+
+  <section id="test" class="test hidden">
+    <div class="card progress">
+      <div class="meta">
+        <span id="pLabel">문항 1 / 32</span>
+        <span id="pPct">3%</span>
+      </div>
+      <div class="bar"><div id="pFill" class="fill"></div></div>
+    </div>
+    <div class="card q">
+      <div id="qAxis" class="tag"></div>
+      <h2 id="qText"></h2>
+      <div id="opts" class="opts"></div>
+      <div class="nav">
+        <button class="btn ghost" id="prev" type="button">이전</button>
+        <button class="btn primary" id="next" type="button" disabled>다음</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="result" class="hidden">
+    <div class="card resultH">
+      <span class="badge">EETI 공감방식 리포트</span>
+      <h2 id="rHeader"></h2>
+      <p id="rSummary"></p>
+      <p id="reportIntro">EETI는 당신의 성격을 단정하는 검사가 아닙니다. 이 리포트는 당신의 공감이 무엇에 반응하고, 어떻게 흔들리고, 어떻게 변화하는지를 읽기 위한 공감방식 보고서입니다.</p>
+      <div class="resultActions">
+        <button class="btn primary" id="resetBtn" type="button">다시 검사하기</button>
+        <button class="btn ghost" id="copyBtn" type="button">결과 복사</button>
+      </div>
+    </div>
+
+    <div class="resultGrid">
+      <article class="card"><h3>공감 엔진</h3><p id="engine"></p></article>
+      <article class="card"><h3>공감 방식</h3><p id="drive"></p></article>
+      <article class="card"><h3>잘 맞는 부분</h3><ul id="fit"></ul></article>
+      <article class="card"><h3>충돌 / 그림자</h3><ul id="conflict"></ul></article>
+      <article class="card"><h3>보완하면 좋은 것</h3><ul id="improve"></ul></article>
+      <article class="card"><h3>살리면 좋은 것</h3><ul id="strength"></ul></article>
+    </div>
+
+    <div class="resultGrid lower">
+      <article class="card"><h3>당신의 공감방식 한 줄 요약</h3><p id="identity"></p></article>
+      <article class="card"><h3>당신의 공감은 어떻게 작동합니까?</h3><p id="summaryDetail"></p></article>
+      <article class="card"><h3>관계에서 당신의 공감은 어떻게 반응합니까?</h3><p id="relationship"></p></article>
+      <article class="card"><h3>사랑에서 당신의 공감은 어떻게 작동합니까?</h3><p id="romance"></p></article>
+      <article class="card"><h3>일과 사회에서 당신의 공감은 어떻게 쓰입니까?</h3><p id="work"></p></article>
+      <article class="card"><h3>돈과 선택 앞에서 당신은 어떻게 반응합니까?</h3><p id="money"></p></article>
+      <article class="card"><h3>당신의 공감은 몸에서 어떻게 나타납니까?</h3><p id="health"></p></article>
+      <article class="card"><h3>시간이 지나며 당신의 공감은 어떻게 변합니까?</h3><p id="ages"></p></article>
+      <article class="card"><h3>지금 한국 사회에서 이 공감방식은 어떻게 살아갑니까?</h3><p id="society"></p></article>
+      <article class="card"><h3>이 공감방식의 강점을 살리는 법</h3><p id="maximize"></p></article>
+      <article class="card"><h3>이 공감방식이 무너지지 않게 지키는 법</h3><p id="minimize"></p></article>
+      <article class="card"><h3>지금 당신에게 필요한 공감의 방향</h3><p id="finalAdvice"></p></article>
+      <article class="card"><h3>이 공감방식은 원래의 나입니까, 버텨온 나입니까?</h3><p id="authHint"></p></article>
+    </div>
+  </section>
+</main>
+
+<footer class="container footer">
+  <div>© EETI Test Prototype · Vercel 배포용 단일 파일 버전</div>
+  <div class="visitor"><span>방문자수</span><strong id="visitorCount">-</strong></div>
+</footer>
+
 <script>
 const QUESTIONS = [
   ['1축 · 의지-반응','나는 마음먹은 일은 주변 상황과 상관없이 끝까지 밀어붙이는 편이다.','will',0],
