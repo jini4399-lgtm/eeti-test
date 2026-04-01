@@ -1,330 +1,3 @@
-<!doctype html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EETI 검사, 당신의 공감 방식은 무엇입니까?</title>
-  <style>
-    :root{
-      --bg:#08111f;
-      --panel:rgba(15,24,41,.82);
-      --line:rgba(255,255,255,.1);
-      --txt:#f6f8fb;
-      --muted:#b9c4d6;
-      --a:#72b9ff;
-      --b:#ffbf7a;
-      --r:24px;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Pretendard,sans-serif;
-      color:var(--txt);
-      background:
-        radial-gradient(circle at 20% 10%,rgba(80,130,255,.2),transparent 22%),
-        radial-gradient(circle at 85% 15%,rgba(255,150,80,.16),transparent 24%),
-        linear-gradient(180deg,#06101d,#091425 45%,#0b1422);
-      line-height:1.65;
-    }
-    a{color:#9fd0ff}
-    .container{width:min(1080px,calc(100vw - 32px));margin:0 auto}
-    .top{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      padding:24px 0 10px;
-      position:sticky;
-      top:0;
-      backdrop-filter:blur(16px);
-      z-index:20;
-    }
-    .topActions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-    .translatorWrap{min-width:180px}
-    #google_translate_element{display:flex;align-items:center;min-height:48px}
-    #google_translate_element .goog-te-gadget{
-      color:var(--muted)!important;
-      font-size:14px!important;
-      display:flex;
-      align-items:center
-    }
-    #google_translate_element .goog-te-gadget span{
-      display:inline!important;
-      color:var(--muted)!important;
-      font-size:14px!important;
-      margin-right:8px
-    }
-    #google_translate_element .goog-te-gadget .goog-te-combo{
-      background:rgba(255,255,255,.04);
-      color:var(--txt);
-      border:1px solid rgba(255,255,255,.12);
-      border-radius:14px;
-      padding:12px 14px;
-      font:inherit;
-      min-width:180px;
-      outline:none
-    }
-    .goog-logo-link{
-      display:inline!important;
-      color:var(--muted)!important;
-      font-size:14px!important;
-      margin-right:8px;
-      text-decoration:none!important
-    }
-    iframe.goog-te-banner-frame{display:none!important}
-    body{top:0!important}
-    .brand{display:flex;gap:14px;align-items:center}
-    .mark{
-      width:44px;height:44px;border-radius:14px;
-      background:linear-gradient(135deg,var(--a),var(--b));
-      display:grid;place-items:center;color:#08111f;font-weight:800
-    }
-    .sub{font-size:12px;color:var(--muted)}
-    .btn{
-      border:0;border-radius:16px;padding:14px 18px;
-      font:inherit;cursor:pointer
-    }
-    .primary{
-      background:linear-gradient(135deg,var(--a),var(--b));
-      color:#08111f;font-weight:800
-    }
-    .ghost{
-      background:rgba(255,255,255,.04);
-      color:var(--txt);
-      border:1px solid rgba(255,255,255,.12)
-    }
-    .card{
-      background:var(--panel);
-      border:1px solid var(--line);
-      border-radius:var(--r);
-      box-shadow:0 18px 40px rgba(0,0,0,.35);
-      backdrop-filter:blur(18px)
-    }
-    .hero{
-      display:grid;
-      grid-template-columns:1.15fr .85fr;
-      gap:24px;
-      align-items:center;
-      padding:18px 0 40px
-    }
-    .badge{
-      display:inline-block;padding:9px 14px;border-radius:999px;
-      background:rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.08);
-      color:#d9e7ff;font-size:14px
-    }
-    .hero h1{
-      font-size:clamp(38px,6vw,64px);
-      line-height:1.03;
-      letter-spacing:-.04em;
-      margin:18px 0
-    }
-    .grad{
-      background:linear-gradient(90deg,#a7d7ff 0%,#ffd69f 45%,#aef9d7 100%);
-      -webkit-background-clip:text;
-      background-clip:text;
-      color:transparent
-    }
-    .hero p{font-size:18px;line-height:1.75;color:var(--muted)}
-    .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
-    .side{padding:24px}
-    .side h3{margin-top:0}
-    .side li{margin:10px 0;color:var(--muted);line-height:1.6}
-    .info{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:56px}
-    .info .card{padding:22px}
-    .info h3{margin-top:0}
-    .info p{color:var(--muted);line-height:1.7}
-    .hidden{display:none!important}
-    .test{max-width:860px;margin:0 auto 64px}
-    .progress{padding:18px 20px;margin-bottom:16px}
-    .meta{display:flex;justify-content:space-between;color:var(--muted);font-size:14px;margin-bottom:12px}
-    .bar{height:10px;border-radius:999px;background:rgba(255,255,255,.06);overflow:hidden}
-    .fill{height:100%;width:0;background:linear-gradient(90deg,var(--a),var(--b))}
-    .q{padding:28px}
-    .tag{
-      display:inline-block;padding:8px 12px;border-radius:999px;
-      background:rgba(255,255,255,.06);font-size:14px;color:#d6e2f5;margin-bottom:16px
-    }
-    .q h2{margin:0 0 20px;font-size:clamp(24px,3vw,36px);line-height:1.35}
-    .opts{display:grid;gap:12px}
-    .opt{
-      display:flex;gap:14px;align-items:center;padding:16px 18px;border-radius:18px;
-      background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.09);cursor:pointer
-    }
-    .opt:hover{background:rgba(255,255,255,.06)}
-    .opt.active{
-      border-color:rgba(255,191,122,.8);
-      background:linear-gradient(90deg,rgba(114,185,255,.12),rgba(255,191,122,.1))
-    }
-    .num{
-      width:36px;height:36px;border-radius:999px;background:rgba(255,255,255,.08);
-      display:grid;place-items:center;font-weight:700
-    }
-    .txt{color:var(--muted)}
-    .nav{display:flex;justify-content:space-between;gap:12px;margin-top:24px}
-    .resultH{padding:28px;margin-bottom:18px}
-    .resultH h2{font-size:clamp(28px,4vw,44px);line-height:1.2;margin:14px 0 10px}
-    .resultH p{line-height:1.75;color:var(--muted)}
-    .resultActions{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
-    .resultGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    .resultGrid.lower{grid-template-columns:repeat(2,1fr);margin-top:16px}
-    .resultGrid .card{padding:22px}
-    .resultGrid p,.resultGrid li{color:var(--muted);line-height:1.7}
-    .footer{
-      display:flex;justify-content:space-between;align-items:center;gap:12px;
-      color:rgba(255,255,255,.55);padding:28px 0 40px;font-size:14px
-    }
-    .visitor{display:flex;align-items:center;gap:8px;color:#d9e7ff}
-    .visitor strong{font-size:15px}
-    @media(max-width:980px){
-      .hero,.info,.resultGrid,.resultGrid.lower{grid-template-columns:1fr}
-    }
-    @media(max-width:640px){
-      .top{flex-direction:column;align-items:flex-start;gap:14px}
-      .topActions,.translatorWrap{width:100%}
-      #google_translate_element .goog-te-gadget .goog-te-combo{width:100%}
-      .nav,.resultActions{flex-direction:column}
-      .nav .btn,.resultActions .btn{width:100%}
-      .footer{flex-direction:column;align-items:flex-start}
-    }
-  </style>
-</head>
-<body>
-<header class="top container">
-  <div class="brand">
-    <div class="mark">E</div>
-    <div>
-      <div><strong>EETI</strong></div>
-      <div class="sub">Empathy Existence Type Indicator</div>
-    </div>
-  </div>
-  <div class="topActions">
-    <div id="google_translate_element" class="translatorWrap"></div>
-  </div>
-</header>
-
-<main class="container">
-  <section id="landing" class="hero">
-    <div>
-      <h1>EETI 검사, <span class="grad">당신의 공감 방식은 무엇입니까?</span></h1>
-      <p><strong>EETI는 성격을 가볍게 분류하는 검사가 아닙니다.</strong> EETI는 겉으로 보이는 성향보다 <strong>공감하는 방식</strong>을 봅니다. 자신과 타인의 공감 방식 속에서, 내가 무엇으로 움직이고 어떻게 반응하고 어떻게 변화하는지, 곧 <strong>존재의 구조</strong>를 읽기 위한 도구입니다.</p>
-      <div class="actions">
-        <button class="btn primary" id="startBtn" type="button">공감방식 검사 시작</button>
-        <button class="btn ghost" id="aboutBtn" type="button">EETI 소개 보기</button>
-      </div>
-    </div>
-    <div class="card side">
-      <h3>1. EETI 소개</h3>
-      <ul>
-        <li><strong>EETI는 공감방식을 알아보는 도구</strong>입니다.</li>
-        <li>이 검사는 당신의 성격보다 <strong>공감이 어떻게 작동하는지</strong>를 읽습니다.</li>
-        <li>겉성향보다 <strong>공감의 구조</strong>를 읽습니다.</li>
-        <li>결과는 <strong>4자리 코드</strong>와 해석 리포트로 나옵니다.</li>
-        <li>핵심 질문은 “나는 어떤 사람인가?”보다 <strong>“나는 어떻게 공감하는가?”</strong>입니다.</li>
-      </ul>
-    </div>
-  </section>
-
-  <section id="about" class="info">
-    <article class="card">
-      <h3>2. EETI는 무엇을 봅니까?</h3>
-      <p>EETI는 겉으로 보이는 성향보다 <strong>공감하는 방식</strong>을 봅니다. 자신과 타인의 공감 방식 속에서, 내가 무엇으로 움직이고 어떻게 반응하고 어떻게 변화하는지, 곧 <strong>존재의 구조</strong>를 읽습니다.</p>
-    </article>
-    <article class="card">
-      <h3>3. 어떻게 결과가 나옵니까?</h3>
-      <p>문항을 통해 <strong>4개의 축</strong>을 측정합니다. 결과는 <strong>4자리 코드</strong>로 출력되며, 앞의 두 자리는 기본 공감엔진, 뒤의 두 자리는 그 공감이 현실에서 작동하는 운전방식을 뜻합니다.</p>
-      <p><strong>4축의 의미</strong><br>
-      ① 의지·반응: 무엇이 나를 움직이고 무엇에 내가 반응하는가<br>
-      ② 이성OS·공감OS: 나는 논리와 감정 중 무엇으로 먼저 처리하는가<br>
-      ③ 출력·대응: 나는 바깥으로 내보내는가, 바깥에 맞추는가<br>
-      ④ 학습·진화: 나는 무엇을 배우고 어떻게 달라지는가</p>
-      <p><strong>16가지 대표유형</strong><br>
-      11형 멈춘 엔진형 · 12형 흔들리는 수신형 · 13형 고립된 추진형 · 14형 완성형 추진자<br>
-      21형 감정 차단형 · 22형 상처받은 공감형 · 23형 차가운 분석형 · 24형 균형 잡힌 이해형<br>
-      31형 내부 소진형 · 32형 타인 중심 실행형 · 33형 독립 실행형 · 34형 완전 실행형<br>
-      41형 정체 유지형 · 42형 적응 성장형 · 43형 지식 축적형 · 44형 완성 진화형</p>
-    </article>
-    <article class="card">
-      <h3>4. 이 검사의 목적은 무엇입니까?</h3>
-      <p>EETI의 목적은 사람을 좋은 유형과 나쁜 유형으로 자르는 것이 아닙니다. <strong>내 공감방식을 이해하고</strong>, 반복되는 관계 문제, 소진 패턴, 성장 방식, 적응 방식까지 더 정교하게 읽어내기 위한 도구입니다.</p>
-    </article>
-    <article class="card">
-      <h3>5. EETI는 무엇을 기반으로 합니까?</h3>
-      <p>EETI는 <strong>공감이론</strong>을 기반으로 합니다. 출발점은 <strong>“의지에 반응하여 공감하면 존재한다”</strong>는 명제입니다. 존재는 고정된 성격이 아니라, 의지·반응·공감·변화의 흐름 속에서 형성된다고 보고, EETI는 그 흐름을 공감방식의 언어로 읽어냅니다.</p>
-    </article>
-    <article class="card">
-      <h3>6. 공감이론</h3>
-      <p>공감이론은 존재를 고정된 성격이나 단순한 심리 상태로 보지 않고, <strong>의지·반응·공감·존재</strong>의 흐름 속에서 이해하려는 관점입니다. 핵심 명제는 <strong>“의지에 반응하여 공감하면 존재한다”</strong>입니다. 즉 어떤 존재든 스스로의 의지와 외부의 반응이 만나 공감의 임계치를 넘을 때 비로소 선명한 존재로 드러난다고 봅니다. 인간의 관계, 사랑, 상처, 사회, 집단, 자연, 문명까지도 이 구조 안에서 다시 읽을 수 있습니다. EETI는 바로 이 공감이론을 바탕으로, 사람이 무엇에 반응하고 어떻게 흔들리고 어떻게 적응하고 성장하는지, 곧 <strong>공감방식의 구조</strong>를 해석하려는 도구입니다.</p>
-    </article>
-    <article class="card">
-      <h3>7. kamaitsra 공감 이론 채널</h3>
-      <p><strong>kamaitsra 티스토리</strong><br><a href="https://kamaitsra.tistory.com" target="_blank" rel="noopener noreferrer">https://kamaitsra.tistory.com</a></p>
-      <p><strong>kamaitsra 브런치</strong><br><a href="https://brunch.co.kr/@kamaitsra" target="_blank" rel="noopener noreferrer">https://brunch.co.kr/@kamaitsra</a></p>
-    </article>
-  </section>
-
-  <section id="test" class="test hidden">
-    <div class="card progress">
-      <div class="meta">
-        <span id="pLabel">문항 1 / 32</span>
-        <span id="pPct">3%</span>
-      </div>
-      <div class="bar"><div id="pFill" class="fill"></div></div>
-    </div>
-    <div class="card q">
-      <div id="qAxis" class="tag"></div>
-      <h2 id="qText"></h2>
-      <div id="opts" class="opts"></div>
-      <div class="nav">
-        <button class="btn ghost" id="prev" type="button">이전</button>
-        <button class="btn primary" id="next" type="button" disabled>다음</button>
-      </div>
-    </div>
-  </section>
-
-  <section id="result" class="hidden">
-    <div class="card resultH">
-      <span class="badge">EETI 공감방식 리포트</span>
-      <h2 id="rHeader"></h2>
-      <p id="rSummary"></p>
-      <p id="reportIntro">EETI는 당신의 성격을 단정하는 검사가 아닙니다. 이 리포트는 당신의 공감이 무엇에 반응하고, 어떻게 흔들리고, 어떻게 변화하는지를 읽기 위한 공감방식 보고서입니다.</p>
-      <div class="resultActions">
-        <button class="btn primary" id="resetBtn" type="button">다시 검사하기</button>
-        <button class="btn ghost" id="copyBtn" type="button">결과 복사</button>
-      </div>
-    </div>
-
-    <div class="resultGrid">
-      <article class="card"><h3>공감 엔진</h3><p id="engine"></p></article>
-      <article class="card"><h3>공감 방식</h3><p id="drive"></p></article>
-      <article class="card"><h3>잘 맞는 부분</h3><ul id="fit"></ul></article>
-      <article class="card"><h3>충돌 / 그림자</h3><ul id="conflict"></ul></article>
-      <article class="card"><h3>보완하면 좋은 것</h3><ul id="improve"></ul></article>
-      <article class="card"><h3>살리면 좋은 것</h3><ul id="strength"></ul></article>
-    </div>
-
-    <div class="resultGrid lower">
-      <article class="card"><h3>당신의 공감방식 한 줄 요약</h3><p id="identity"></p></article>
-      <article class="card"><h3>당신의 공감은 어떻게 작동합니까?</h3><p id="summaryDetail"></p></article>
-      <article class="card"><h3>관계에서 당신의 공감은 어떻게 반응합니까?</h3><p id="relationship"></p></article>
-      <article class="card"><h3>사랑에서 당신의 공감은 어떻게 작동합니까?</h3><p id="romance"></p></article>
-      <article class="card"><h3>일과 사회에서 당신의 공감은 어떻게 쓰입니까?</h3><p id="work"></p></article>
-      <article class="card"><h3>돈과 선택 앞에서 당신은 어떻게 반응합니까?</h3><p id="money"></p></article>
-      <article class="card"><h3>당신의 공감은 몸에서 어떻게 나타납니까?</h3><p id="health"></p></article>
-      <article class="card"><h3>시간이 지나며 당신의 공감은 어떻게 변합니까?</h3><p id="ages"></p></article>
-      <article class="card"><h3>지금 한국 사회에서 이 공감방식은 어떻게 살아갑니까?</h3><p id="society"></p></article>
-      <article class="card"><h3>이 공감방식의 강점을 살리는 법</h3><p id="maximize"></p></article>
-      <article class="card"><h3>이 공감방식이 무너지지 않게 지키는 법</h3><p id="minimize"></p></article>
-      <article class="card"><h3>지금 당신에게 필요한 공감의 방향</h3><p id="finalAdvice"></p></article>
-      <article class="card"><h3>이 공감방식은 원래의 나입니까, 버텨온 나입니까?</h3><p id="authHint"></p></article>
-    </div>
-  </section>
-</main>
-
-<footer class="container footer">
-  <div>© EETI Test Prototype · Vercel 배포용 단일 파일 버전</div>
-  <div class="visitor"><span>방문자수</span><strong id="visitorCount">-</strong></div>
-</footer>
-
 <script>
 const QUESTIONS = [
   ['1축 · 의지-반응','나는 마음먹은 일은 주변 상황과 상관없이 끝까지 밀어붙이는 편이다.','will',0],
@@ -335,6 +8,7 @@ const QUESTIONS = [
   ['1축 · 의지-반응','중요한 결정을 할 때 외부 의견보다 내 기준을 우선한다.','will',0],
   ['1축 · 의지-반응','사람이나 상황에 따라 내 태도가 크게 달라지는 편이다.','response',0],
   ['1축 · 의지-반응','손해를 보더라도 내가 맞다고 생각하는 방향을 유지하려 한다.','will',0],
+
   ['2축 · 이성OS-공감OS','문제를 해결할 때 감정보다 논리와 구조를 먼저 본다.','reason',0],
   ['2축 · 이성OS-공감OS','상대의 말보다 그 사람의 감정 상태가 더 먼저 느껴진다.','empathy',0],
   ['2축 · 이성OS-공감OS','감정이 개입되면 오히려 판단이 흐려진다고 느낀다.','reason',0],
@@ -343,6 +17,7 @@ const QUESTIONS = [
   ['2축 · 이성OS-공감OS','타인의 기분이나 분위기에 영향을 많이 받는 편이다.','empathy',0],
   ['2축 · 이성OS-공감OS','감정보다 결과와 효율이 더 중요하다고 생각한다.','reason',0],
   ['2축 · 이성OS-공감OS','논리적으로 맞아도 감정이 불편하면 받아들이기 어렵다.','empathy',0],
+
   ['3축 · 출력-대응','나는 스스로 정한 목표나 계획을 외부 상황과 상관없이 실행하려는 편이다.','output',0],
   ['3축 · 출력-대응','누군가의 요청이나 기대가 있으면 그에 맞추어 행동하는 경우가 많다.','adapt',0],
   ['3축 · 출력-대응','내가 하고 싶은 일이 있어도 주변 상황에 따라 쉽게 미루거나 바뀌는 편이다.','adapt',0],
@@ -351,6 +26,7 @@ const QUESTIONS = [
   ['3축 · 출력-대응','타인의 의견과 상관없이 내가 결정한 방향을 밀고 나가는 편이다.','output',0],
   ['3축 · 출력-대응','부탁이나 요청을 받으면 내 계획보다 그것을 우선하는 경우가 많다.','adapt',0],
   ['3축 · 출력-대응','누가 시키지 않아도 내가 필요하다고 느끼면 바로 행동으로 옮긴다.','output',0],
+
   ['4축 · 학습-진화','새로운 것을 배우는 것 자체를 즐기는 편이다.','learn',0],
   ['4축 · 학습-진화','같은 실수를 반복하지 않기 위해 나를 바꾸려는 노력을 한다.','evolve',0],
   ['4축 · 학습-진화','정보를 모으고 이해하는 과정이 중요하다고 생각한다.','learn',0],
@@ -409,89 +85,94 @@ function getDetailResult(typeCode) {
   return DETAIL_RESULTS[typeCode] || null;
 }
 
-  addDetailResult("1111", {
-    title: "1111 · 공감방식 리포트",
-    header: "1111 멈춘 엔진형, 정체형 은둔자",
-    identity: "당신의 공감방식은 스스로 밀고 나가는 힘도 약하고 외부를 읽어 기동하는 힘도 약하며, 표현과 대응, 학습과 변화까지 전반적으로 저출력 상태에 머무르기 쉬운 구조에 가깝습니다.",
-    summary: "1111의 핵심은 모든 축이 낮게 잡혀 있다는 점입니다. 1축이 1이므로 의지도 약하고 반응도 약합니다. 스스로 존재를 밀어붙이는 힘도 약하고, 타인의 의지나 외부 자극을 받아 OS를 기동하는 힘도 약한 편입니다. 2축도 1이므로 이성OS와 공감OS 모두 약합니다. 즉 논리적으로 정리하는 힘도 약하고, 정서적으로 감지하고 읽는 힘도 부정확할 가능성이 큽니다. 3축 역시 1이어서 출력과 대응이 모두 약합니다. 생각과 감정이 바깥으로 잘 드러나지 않고, 외부 상황에 맞춰 적절히 처리하는 힘도 약합니다. 4축도 1입니다. 학습도 약하고 진화도 약합니다. 배워도 잘 안 남고, 남아도 틀어질 수 있으며, 더 나은 방향으로 바뀌는 힘도 약할 수 있습니다. 좋은 방향으로 가면 자극에 덜 휘둘리고 조용히 자기 페이스를 지키는 사람이 됩니다. 나쁘게 가면 무기력, 회피, 둔감, 정체, 자기 포기로 흐르기 쉽습니다. 이 유형은 화려하지 않지만, 자신의 저시동 구조를 정확히 이해할 때 삶의 전략이 오히려 선명해집니다.",
-    relationship: "인간관계에서는 먼저 다가가는 힘도 약하고, 상대의 신호를 빠르게 받는 힘도 약합니다. 그래서 관계 형성 자체가 느릴 수 있습니다. 또 공감OS와 이성OS 모두 약하므로 타인을 깊이 이해하거나 상황을 정확히 읽는 데 서툴 수 있습니다. 그러다 보니 오해를 풀기보다 피하고, 갈등을 조율하기보다 멈추는 쪽으로 흐르기 쉽습니다. 좋게 가면 관계 소모가 적고 가볍게 휩쓸리지 않는 구조가 됩니다. 나쁘게 가면 정이 없고 닫혀 있다는 평가를 받기 쉽습니다.",
-    romance: "연애에서는 적극적으로 표현하거나 관계를 밀어붙이는 힘이 약합니다. 반응도 약하므로 상대가 보내는 신호를 뒤늦게 알아차리거나 중요한 흐름을 놓칠 수 있습니다. 출력과 대응도 약해 좋아해도 표현이 잘 안 나오고, 문제가 생겨도 적절하게 대응하지 못할 가능성이 큽니다. 좋게 가면 과장 없는 안정형이 될 수 있습니다. 나쁘게 가면 관계를 방치하고 상대가 다 끌고 가야 하는 구조가 됩니다.",
-    work: "일에서는 자발적 추진력도 약하고 외부 자극에 즉시 반응하는 힘도 약해 초반 기동이 매우 느릴 수 있습니다. 이해와 해석의 OS도 모두 약하므로 업무의 맥락을 빨리 파악하지 못하거나 핵심을 놓칠 수 있습니다. 출력과 대응도 약해 보고, 발표, 협업, 실시간 대처에서 존재감이 낮아질 수 있습니다. 좋게 가면 단순하고 반복적인 루틴, 명확한 절차, 예측 가능한 환경에서 흔들리지 않고 버틸 수 있습니다. 자유도가 높을수록 무너지기 쉽습니다.",
-    money: "돈 문제에서도 공격적이지 않고 정보에 민감하게 반응하는 편도 아닙니다. 그래서 기회를 잘 못 잡을 수 있고, 반대로 위험 신호도 늦게 볼 수 있습니다. 이 유형은 재테크 감각보다 자동화가 중요합니다. 자동 저축, 예산 설정, 반복 시스템이 생존 전략입니다.",
-    health: "건강에서는 몸의 신호를 둔하게 느끼거나, 느껴도 바로 대응하지 않을 가능성이 있습니다. 피곤해도 넘기고, 이상이 있어도 미루고, 아파도 병원 가는 결정을 늦출 수 있습니다. 이 유형은 감각보다 점검이 중요합니다. 정기검진, 수면 루틴, 식사 시간, 가벼운 운동 같은 외부 구조가 필요합니다.",
-    ages: "10대에는 조용하고 느리고 존재감이 희미한 아이로 보일 수 있습니다. 20대에는 사회 진입과 관계 형성에서 답답함을 크게 느끼기 쉽습니다. 30대 이후에는 두 갈래가 갈립니다. 하나는 계속 미루고 닫히며 더 정지하는 길이고, 다른 하나는 작은 루틴과 훈련으로 겨우겨우 기동을 배우는 길입니다. 이 유형은 시간이 해결해주는 타입이 아닙니다. 설계가 있어야 나아집니다.",
-    society: "한국 사회에서는 매우 불리하게 읽히기 쉽습니다. 추진력, 눈치, 센스, 빠른 적응, 자기PR을 요구하는 환경에서 답답하고 뒤처지는 사람처럼 보일 수 있습니다. 하지만 이 구조는 남들처럼 즉시 반응하며 이기는 타입이 아닙니다. 삶의 마찰을 줄이고 구조를 단순화할 때 살아납니다.",
-    maximize: "거창한 목표를 세우지 말고 작은 기동을 반복해야 합니다. 모든 것을 자동화하고, 선택지를 줄이고, 짧은 입력과 짧은 출력 훈련을 해야 합니다. 사람보다 구조를 먼저 붙잡아야 합니다.",
-    minimize: "감각에 의존하면 안 됩니다. 하고 싶을 때 하겠다는 방식은 거의 실패합니다. 일정과 규칙을 밖에 박아둬야 합니다. 또 무반응을 중립이라고 착각하면 안 됩니다. 아주 짧게라도 의식적으로 반응을 표현해야 합니다.",
-    finalAdvice: "당신에게 필요한 것은 뜨거운 동기부여가 아니라 작은 기동을 가능하게 하는 설계입니다. 남들처럼 한 번에 잘하려 하지 말고, 아주 작은 반응과 아주 작은 학습부터 다시 깔아야 합니다.",
-    authHint: "원래부터 에너지와 반응이 낮은 기질이었는지, 아니면 반복된 실패와 무력감 이후에 스스로를 꺼버린 것인지 돌아봐야 합니다.",
-    engineDeep: "11 엔진은 의지도 약하고 반응도 약한 저시동 엔진입니다. 존재를 밀어붙이는 힘도 약하고, 외부 의지를 받아 기동하는 힘도 약합니다. 여기에 2축이 1이라 이성OS와 공감OS의 품질까지 낮습니다. 좋은 방향으로 가면 저자극형이 되고, 나쁘게 가면 무기력과 정지로 흐릅니다.",
-    driveDeep: "11 공감방식은 출력도 약하고 대응도 약하며, 학습도 약하고 진화도 약한 정체형 구조입니다. 가만히 두면 그대로 멈춰 있기 쉽습니다.",
-    fitDeep: [
-      "선택지가 적고 구조가 단순한 환경",
-      "반복 루틴이 명확한 생활 방식",
-      "자극이 적고 경쟁이 낮은 관계",
-      "자율성보다 절차가 분명한 시스템"
-    ],
-    conflictDeep: [
-      "시작 자체를 계속 미루기 쉽습니다.",
-      "무반응이 무관심으로 읽히기 쉽습니다.",
-      "배움과 변화가 느려 실패 패턴이 오래 갑니다.",
-      "빠른 환경에서 자기부정이 심해질 수 있습니다."
-    ],
-    improveDeep: [
-      "중요한 행동을 감정이 아니라 시스템에 연결해야 합니다.",
-      "모든 일을 초소형 단위로 쪼개야 합니다.",
-      "짧게라도 반응을 표현하는 훈련이 필요합니다.",
-      "기록과 점검으로 자기 상태를 확인해야 합니다."
-    ],
-    strengthDeep: [
-      "저자극 환경에서는 안정적일 수 있습니다.",
-      "쓸데없는 경쟁과 감정 소모에 덜 휘말릴 수 있습니다.",
-      "구조만 맞으면 자기 페이스를 유지할 수 있습니다.",
-      "작은 기동이 살아나면 삶 전체의 마찰을 줄일 수 있습니다."
-    ]
-  });
-
-
-  
+/* 샘플: 1111만 넣음. 나머지도 같은 형식으로 추가 */
+addDetailResult("1111", {
+  title: "1111 · 공감방식 리포트",
+  header: "1111 멈춘 엔진형, 정체형 은둔자",
+  identity: "당신의 공감방식은 스스로 밀고 나가는 힘도 약하고 외부를 읽어 기동하는 힘도 약하며, 표현과 대응, 학습과 변화까지 전반적으로 저출력 상태에 머무르기 쉬운 구조에 가깝습니다.",
+  summary: "1111의 핵심은 모든 축이 낮게 잡혀 있다는 점입니다. 1축이 1이므로 의지도 약하고 반응도 약합니다. 스스로 존재를 밀어붙이는 힘도 약하고, 타인의 의지나 외부 자극을 받아 OS를 기동하는 힘도 약한 편입니다. 2축도 1이므로 이성OS와 공감OS 모두 약합니다. 즉 논리적으로 정리하는 힘도 약하고, 정서적으로 감지하고 읽는 힘도 부정확할 가능성이 큽니다. 3축 역시 1이어서 출력과 대응이 모두 약합니다. 생각과 감정이 바깥으로 잘 드러나지 않고, 외부 상황에 맞춰 적절히 처리하는 힘도 약합니다. 4축도 1입니다. 학습도 약하고 진화도 약합니다. 배워도 잘 안 남고, 남아도 틀어질 수 있으며, 더 나은 방향으로 바뀌는 힘도 약할 수 있습니다. 좋은 방향으로 가면 자극에 덜 휘둘리고 조용히 자기 페이스를 지키는 사람이 됩니다. 나쁘게 가면 무기력, 회피, 둔감, 정체, 자기 포기로 흐르기 쉽습니다.",
+  relationship: "인간관계에서는 먼저 다가가는 힘도 약하고, 상대의 신호를 빠르게 받는 힘도 약합니다.",
+  romance: "연애에서는 적극적으로 표현하거나 관계를 밀어붙이는 힘이 약합니다.",
+  work: "일에서는 자발적 추진력도 약하고 외부 자극에 즉시 반응하는 힘도 약해 초반 기동이 매우 느릴 수 있습니다.",
+  money: "돈 문제에서도 공격적이지 않고 정보에 민감하게 반응하는 편도 아닙니다.",
+  health: "건강에서는 몸의 신호를 둔하게 느끼거나, 느껴도 바로 대응하지 않을 가능성이 있습니다.",
+  ages: "10대에는 조용하고 느리고 존재감이 희미한 아이로 보일 수 있습니다.",
+  society: "한국 사회에서는 매우 불리하게 읽히기 쉽습니다.",
+  maximize: "거창한 목표를 세우지 말고 작은 기동을 반복해야 합니다.",
+  minimize: "감각에 의존하면 안 됩니다. 하고 싶을 때 하겠다는 방식은 거의 실패합니다.",
+  finalAdvice: "당신에게 필요한 것은 뜨거운 동기부여가 아니라 작은 기동을 가능하게 하는 설계입니다.",
+  authHint: "원래부터 에너지와 반응이 낮은 기질이었는지, 아니면 반복된 실패와 무력감 이후에 스스로를 꺼버린 것인지 돌아봐야 합니다.",
+  engineDeep: "11 엔진은 의지도 약하고 반응도 약한 저시동 엔진입니다.",
+  driveDeep: "11 공감방식은 출력도 약하고 대응도 약하며, 학습도 약하고 진화도 약한 정체형 구조입니다.",
+  fitDeep: [
+    "선택지가 적고 구조가 단순한 환경",
+    "반복 루틴이 명확한 생활 방식",
+    "자극이 적고 경쟁이 낮은 관계",
+    "자율성보다 절차가 분명한 시스템"
+  ],
+  conflictDeep: [
+    "시작 자체를 계속 미루기 쉽습니다.",
+    "무반응이 무관심으로 읽히기 쉽습니다.",
+    "배움과 변화가 느려 실패 패턴이 오래 갑니다.",
+    "빠른 환경에서 자기부정이 심해질 수 있습니다."
+  ],
+  improveDeep: [
+    "중요한 행동을 감정이 아니라 시스템에 연결해야 합니다.",
+    "모든 일을 초소형 단위로 쪼개야 합니다.",
+    "짧게라도 반응을 표현하는 훈련이 필요합니다.",
+    "기록과 점검으로 자기 상태를 확인해야 합니다."
+  ],
+  strengthDeep: [
+    "저자극 환경에서는 안정적일 수 있습니다.",
+    "쓸데없는 경쟁과 감정 소모에 덜 휘말릴 수 있습니다.",
+    "구조만 맞으면 자기 페이스를 유지할 수 있습니다.",
+    "작은 기동이 살아나면 삶 전체의 마찰을 줄일 수 있습니다."
+  ]
+});
 
 const LABELS = ['전혀 아니다','아니다','보통이다','그렇다','매우 그렇다'];
-const ANS = Array(32).fill(null);
+const ANS = [];
+for (var i = 0; i < 32; i++) ANS.push(null);
 
-let idx = 0;
-let last = null;
-let autoAdvanceLock = false;
+var idx = 0;
+var last = null;
+var autoAdvanceLock = false;
 
-function $(id){ return document.getElementById(id); }
+function $(id) {
+  return document.getElementById(id);
+}
 
-function avg(arr){ return arr.reduce((a,b)=>a+b,0)/arr.length; }
+function avg(arr) {
+  var sum = 0;
+  for (var i = 0; i < arr.length; i++) sum += arr[i];
+  return sum / arr.length;
+}
 
-function digit(a,b){
-  if(a>=3.5 && b>=3.5) return '4';
-  if(a>=3.5 && b<3.5) return '3';
-  if(a<3.5 && b>=3.5) return '2';
+function digit(a, b) {
+  if (a >= 3.5 && b >= 3.5) return '4';
+  if (a >= 3.5 && b < 3.5) return '3';
+  if (a < 3.5 && b >= 3.5) return '2';
   return '1';
 }
 
-function renderList(id, arr){
-  const el = $(id);
-  if(!el) return;
+function renderList(id, arr) {
+  var el = $(id);
+  if (!el) return;
   el.innerHTML = '';
-  arr.forEach(text=>{
-    const li = document.createElement('li');
-    li.textContent = text;
+  for (var i = 0; i < arr.length; i++) {
+    var li = document.createElement('li');
+    li.textContent = arr[i];
     el.appendChild(li);
-  });
+  }
 }
 
-function synth(engine, drive, code){
-  const detail = DETAIL_RESULTS[code];
+function synth(engine, drive, code) {
+  var detail = DETAIL_RESULTS[code];
 
-  if(detail && detail.fitDeep){
+  if (detail && detail.fitDeep) {
     return {
       header: detail.header,
-      summary: `${engine[0]} 엔진이 ${drive[0]} 방식으로 현실에서 발현되는 구조입니다. ${engine[1]} ${drive[1]}`,
+      summary: engine[0] + ' 엔진이 ' + drive[0] + ' 방식으로 현실에서 발현되는 구조입니다. ' + engine[1] + ' ' + drive[1],
       fit: detail.fitDeep,
       conflict: detail.conflictDeep,
       improve: detail.improveDeep,
@@ -502,79 +183,85 @@ function synth(engine, drive, code){
   }
 
   return {
-    header: `${code} ${engine[0]}, ${drive[0]}`,
-    summary: `${engine[0]} 엔진이 ${drive[0]} 방식으로 현실에서 발현되는 구조입니다. ${engine[1]} ${drive[1]}`,
+    header: code + ' ' + engine[0] + ', ' + drive[0],
+    summary: engine[0] + ' 엔진이 ' + drive[0] + ' 방식으로 현실에서 발현되는 구조입니다. ' + engine[1] + ' ' + drive[1],
     fit: [
-      `${engine[0]}의 핵심 에너지가 ${drive[0]} 방식과 만나 현재 삶의 결을 만듭니다.`,
-      `${engine[0]}의 장점은 ${engine[2].slice(0,2).join(', ')} 쪽에서 나타날 가능성이 큽니다.`,
-      `운전방식은 ${drive[1]}의 결을 띠며, 현실에서는 ${drive[2].slice(0,2).join(', ')} 문제가 그림자로 생길 수 있습니다.`
+      engine[0] + '의 핵심 에너지가 ' + drive[0] + ' 방식과 만나 현재 삶의 결을 만듭니다.',
+      engine[0] + '의 장점은 ' + engine[2].slice(0,2).join(', ') + ' 쪽에서 나타날 가능성이 큽니다.',
+      '운전방식은 ' + drive[1] + '의 결을 띠며, 현실에서는 ' + drive[2].slice(0,2).join(', ') + ' 문제가 그림자로 생길 수 있습니다.'
     ],
     conflict: [
-      `이 조합은 ${engine[0]} 엔진과 ${drive[0]} 방식의 마찰이 삶에서 반복 주제로 나타날 수 있습니다.`,
-      `장점이 강할수록 같은 방향의 그림자도 함께 커질 수 있습니다.`,
-      `과로, 과공감, 과독주, 과정지 중 무엇이 반복되는지 점검해보세요.`
+      '이 조합은 ' + engine[0] + ' 엔진과 ' + drive[0] + ' 방식의 마찰이 삶에서 반복 주제로 나타날 수 있습니다.',
+      '장점이 강할수록 같은 방향의 그림자도 함께 커질 수 있습니다.',
+      '과로, 과공감, 과독주, 과정지 중 무엇이 반복되는지 점검해보세요.'
     ],
     improve: [
-      ...engine[3].map(v=>`${v}를 생활 루틴으로 설계하기`),
-      ...drive[2].slice(0,2).map(v=>`${v}를 조기에 감지하고 수정하기`)
+      engine[3][0] + '를 생활 루틴으로 설계하기',
+      engine[3][1] + '를 생활 루틴으로 설계하기',
+      drive[2][0] + '를 조기에 감지하고 수정하기',
+      drive[2][1] + '를 조기에 감지하고 수정하기'
     ],
     strength: [
-      ...engine[2].map(v=>`${v}을(를) 강점 자산으로 키우기`),
-      `${drive[0]} 특유의 작동 방식을 전문성으로 번역하기`
+      engine[2][0] + '을(를) 강점 자산으로 키우기',
+      engine[2][1] + '을(를) 강점 자산으로 키우기',
+      engine[2][2] + '을(를) 강점 자산으로 키우기',
+      drive[0] + ' 특유의 작동 방식을 전문성으로 번역하기'
     ],
     engineDeep: engine[1],
     driveDeep: drive[1]
   };
 }
 
-function render(){
-  const q = QUESTIONS[idx];
-  if(!q) return;
+function render() {
+  var q = QUESTIONS[idx];
+  if (!q) return;
 
   $('qAxis').textContent = q[0];
   $('qText').textContent = q[1];
-  $('pLabel').textContent = `문항 ${idx+1} / 32`;
+  $('pLabel').textContent = '문항 ' + (idx + 1) + ' / 32';
 
-  const pct = Math.round(((idx+1)/32)*100);
-  $('pPct').textContent = `${pct}%`;
-  $('pFill').style.width = `${pct}%`;
+  var pct = Math.round(((idx + 1) / 32) * 100);
+  $('pPct').textContent = pct + '%';
+  $('pFill').style.width = pct + '%';
 
-  const opts = $('opts');
+  var opts = $('opts');
   opts.innerHTML = '';
 
-  LABELS.forEach((label, i)=>{
-    const value = i + 1;
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'opt' + (ANS[idx] === value ? ' active' : '');
-    btn.innerHTML = `<span class="num">${value}</span><span class="txt">${label}</span>`;
+  for (var i = 0; i < LABELS.length; i++) {
+    (function(iCopy){
+      var value = iCopy + 1;
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'opt' + (ANS[idx] === value ? ' active' : '');
+      btn.innerHTML = '<span class="num">' + value + '</span><span class="txt">' + LABELS[iCopy] + '</span>';
 
-    btn.addEventListener('click', ()=>{
-      if(autoAdvanceLock) return;
-      ANS[idx] = value;
-      render();
+      btn.addEventListener('click', function() {
+        if (autoAdvanceLock) return;
+        ANS[idx] = value;
+        render();
 
-      autoAdvanceLock = true;
-      setTimeout(()=>{
-        autoAdvanceLock = false;
-        if(idx < 31){
-          idx += 1;
-          render();
-        }else{
-          showResult();
-        }
-      }, 120);
-    });
+        autoAdvanceLock = true;
+        setTimeout(function() {
+          autoAdvanceLock = false;
+          if (idx < 31) {
+            idx += 1;
+            render();
+          } else {
+            showResult();
+          }
+        }, 120);
+      });
 
-    opts.appendChild(btn);
-  });
+      opts.appendChild(btn);
+    })(i);
+  }
 
   $('prev').disabled = idx === 0;
   $('next').disabled = ANS[idx] == null;
   $('next').textContent = idx === 31 ? '결과 보기' : '다음';
 }
 
-function startTest(){
+function startTest() {
   $('landing').classList.add('hidden');
   $('about').classList.add('hidden');
   $('test').classList.remove('hidden');
@@ -583,8 +270,8 @@ function startTest(){
   render();
 }
 
-function resetTest(){
-  ANS.fill(null);
+function resetTest() {
+  for (var i = 0; i < ANS.length; i++) ANS[i] = null;
   idx = 0;
   last = null;
   $('result').classList.add('hidden');
@@ -593,25 +280,25 @@ function resetTest(){
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function prevQ(){
-  if(idx > 0){
+function prevQ() {
+  if (idx > 0) {
     idx -= 1;
     render();
   }
 }
 
-function nextQ(){
-  if(ANS[idx] == null) return;
-  if(idx < 31){
+function nextQ() {
+  if (ANS[idx] == null) return;
+  if (idx < 31) {
     idx += 1;
     render();
-  }else{
+  } else {
     showResult();
   }
 }
 
-function fillFallbackDetail(){
-  const temp = '이 조합의 상세 결과는 아직 준비 중입니다.';
+function fillFallbackDetail() {
+  var temp = '이 조합의 상세 결과는 아직 준비 중입니다.';
   $('identity').textContent = temp;
   $('summaryDetail').textContent = '현재는 대표 엔진과 공감 방식 중심의 결과가 제공됩니다. 같은 형식으로 나머지 엔진군을 계속 확장하면 됩니다.';
   $('relationship').textContent = temp;
@@ -627,30 +314,31 @@ function fillFallbackDetail(){
   $('authHint').textContent = temp;
 }
 
-function showResult(){
-  const groups = {
+function showResult() {
+  var groups = {
     will:[], response:[],
     reason:[], empathy:[],
     output:[], adapt:[],
     learn:[], evolve:[]
   };
 
-  QUESTIONS.forEach((q, i)=>{
-    let v = ANS[i];
-    if(q[3]) v = 6 - v;
+  for (var i = 0; i < QUESTIONS.length; i++) {
+    var q = QUESTIONS[i];
+    var v = ANS[i];
+    if (q[3]) v = 6 - v;
     groups[q[2]].push(v);
-  });
+  }
 
-  const a1 = digit(avg(groups.will), avg(groups.response));
-  const a2 = digit(avg(groups.reason), avg(groups.empathy));
-  const a3 = digit(avg(groups.output), avg(groups.adapt));
-  const a4 = digit(avg(groups.learn), avg(groups.evolve));
+  var a1 = digit(avg(groups.will), avg(groups.response));
+  var a2 = digit(avg(groups.reason), avg(groups.empathy));
+  var a3 = digit(avg(groups.output), avg(groups.adapt));
+  var a4 = digit(avg(groups.learn), avg(groups.evolve));
 
-  const code = `${a1}${a2}${a3}${a4}`;
-  const engineData = ENGINE[Number(`${a1}${a2}`)];
-  const driveData = DRIVE[Number(`${a3}${a4}`)];
-  const detail = DETAIL_RESULTS[code];
-  const mixed = synth(engineData, driveData, code);
+  var code = '' + a1 + a2 + a3 + a4;
+  var engineData = ENGINE[Number('' + a1 + a2)];
+  var driveData = DRIVE[Number('' + a3 + a4)];
+  var detail = DETAIL_RESULTS[code];
+  var mixed = synth(engineData, driveData, code);
 
   $('rHeader').textContent = mixed.header;
   $('rSummary').textContent = mixed.summary;
@@ -662,7 +350,7 @@ function showResult(){
   renderList('improve', mixed.improve);
   renderList('strength', mixed.strength);
 
-  if(detail){
+  if (detail) {
     $('identity').textContent = detail.identity || '';
     $('summaryDetail').textContent = detail.summary || '';
     $('relationship').textContent = detail.relationship || '';
@@ -676,12 +364,12 @@ function showResult(){
     $('minimize').textContent = detail.minimize || '';
     $('finalAdvice').textContent = detail.finalAdvice || '';
     $('authHint').textContent = detail.authHint || '';
-  }else{
+  } else {
     fillFallbackDetail();
   }
 
   last = {
-    code,
+    code: code,
     header: $('rHeader').textContent,
     summary: $('rSummary').textContent
   };
@@ -691,75 +379,75 @@ function showResult(){
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-async function copyResult(){
-  if(!last) return;
-  try{
-    await navigator.clipboard.writeText(`EETI 결과\n${last.header}\n요약: ${last.summary}`);
-    alert('결과가 복사되었습니다.');
-  }catch(e){
-    alert('복사에 실패했습니다.');
+function copyResult() {
+  if (!last) return;
+  var text = 'EETI 결과\n' + last.header + '\n요약: ' + last.summary;
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text)
+      .then(function () {
+        alert('결과가 복사되었습니다.');
+      })
+      .catch(function () {
+        alert('복사에 실패했습니다.');
+      });
+  } else {
+    alert('이 환경에서는 복사를 지원하지 않습니다.');
   }
 }
 
-async function updateVisitorCount(){
-  const el = $('visitorCount');
-  if(!el) return;
+function updateVisitorCount() {
+  var el = $('visitorCount');
+  if (!el) return;
 
-  try{
-    const res = await fetch('https://api.countapi.xyz/hit/kamaitsra-eeti/total-visits', {
-      method:'GET',
-      cache:'no-store'
-    });
-
-    if(!res.ok) throw new Error('Count API 응답 실패');
-    const data = await res.json();
-
-    if(typeof data.value !== 'undefined'){
-      el.textContent = Number(data.value).toLocaleString('ko-KR');
-      return;
-    }
-    throw new Error('Count API 값 없음');
-  }catch(err){
-    try{
-      const key = 'eeti_local_visits';
-      const next = (parseInt(localStorage.getItem(key) || '0', 10) || 0) + 1;
-      localStorage.setItem(key, String(next));
-      el.textContent = Number(next).toLocaleString('ko-KR');
-    }catch(e){
-      el.textContent = '1';
-    }
+  try {
+    var key = 'eeti_local_visits';
+    var next = (parseInt(localStorage.getItem(key) || '0', 10) || 0) + 1;
+    localStorage.setItem(key, String(next));
+    el.textContent = Number(next).toLocaleString('ko-KR');
+  } catch (e) {
+    el.textContent = '1';
   }
 }
 
-function googleTranslateElementInit(){
-  try{
-    if(!window.google || !google.translate || !google.translate.TranslateElement) return;
+function googleTranslateElementInit() {
+  try {
+    if (!window.google || !google.translate || !google.translate.TranslateElement) return;
     new google.translate.TranslateElement(
       {
-        pageLanguage:'ko',
-        includedLanguages:'en,ja,zh-CN,es',
-        autoDisplay:false,
-        layout:google.translate.TranslateElement.InlineLayout.SIMPLE
+        pageLanguage: 'ko',
+        includedLanguages: 'en,ja,zh-CN,es',
+        autoDisplay: false,
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
       },
       'google_translate_element'
     );
-  }catch(e){
+  } catch (e) {
     console.error('Google Translate init error:', e);
   }
 }
 
-function bindEvents(){
-  $('startBtn')?.addEventListener('click', startTest);
-  $('aboutBtn')?.addEventListener('click', ()=>{
-    $('about').scrollIntoView({ behavior:'smooth' });
-  });
-  $('prev')?.addEventListener('click', prevQ);
-  $('next')?.addEventListener('click', nextQ);
-  $('resetBtn')?.addEventListener('click', resetTest);
-  $('copyBtn')?.addEventListener('click', copyResult);
+function bindEvents() {
+  var startBtn = $('startBtn');
+  var aboutBtn = $('aboutBtn');
+  var prevBtn = $('prev');
+  var nextBtn = $('next');
+  var resetBtn = $('resetBtn');
+  var copyBtn = $('copyBtn');
+
+  if (startBtn) startBtn.addEventListener('click', startTest);
+  if (aboutBtn) {
+    aboutBtn.addEventListener('click', function () {
+      $('about').scrollIntoView({ behavior: 'smooth' });
+    });
+  }
+  if (prevBtn) prevBtn.addEventListener('click', prevQ);
+  if (nextBtn) nextBtn.addEventListener('click', nextQ);
+  if (resetBtn) resetBtn.addEventListener('click', resetTest);
+  if (copyBtn) copyBtn.addEventListener('click', copyResult);
 }
 
-function initApp(){
+function initApp() {
   bindEvents();
   updateVisitorCount();
 }
