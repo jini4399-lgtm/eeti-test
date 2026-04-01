@@ -476,21 +476,6 @@ function getDetailResult(typeCode) {
   return DETAIL_RESULTS[typeCode] || null;
 }
 
-function hasDetailResult(typeCode) {
-  return Object.prototype.hasOwnProperty.call(DETAIL_RESULTS, typeCode);
-}
-
-
-  (function () {
-  if (typeof DETAIL_RESULTS === "undefined") {
-    globalThis.DETAIL_RESULTS = {};
-  }
-
-  if (typeof addDetailResult !== "function") {
-    globalThis.addDetailResult = function (typeCode, data) {
-      DETAIL_RESULTS[typeCode] = data;
-    };
-  }
 
   addDetailResult("1111", {
     title: "1111 · 공감방식 리포트",
