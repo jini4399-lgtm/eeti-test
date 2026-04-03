@@ -860,8 +860,8 @@ function render() {
   const fill = $('pFill');
   if (fill) fill.style.width = progressPct + '%';
 
-  setText('qAxis', q.axisLabel + ' · ' + q.situation);
-  setText('qText', q.question);
+  setText('qAxis', q.axisLabel);
+  setHtml('qText', '<div class="situationBig">' + q.situation + '</div>');
 
   const opts = $('opts');
   if (opts) {
@@ -881,10 +881,16 @@ function render() {
         '<div class="num">' + choice.label + '</div>' +
         '<div class="txt">' + choice.text + '</div>';
 
-      btn.addEventListener('click', function () {
-        ANS[idx] = choice.value;
-        render();
-      });
+     btn.addEventListener('click', function () {
+       ANS[idx] = choice.value;
+
+       if (idx < QUESTIONS.length - 1) {
+         idx += 1;
+         render();
+       } else {
+         showResult();
+       }
+     });
 
       opts.appendChild(btn);
     });
